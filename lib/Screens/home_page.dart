@@ -10,17 +10,16 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: myWhite,
-      body: SafeArea(
-        child: Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: dynamicWidth(context, 0.09)),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: dynamicWidth(context, 0.1)),
+          height: dynamicHeight(context, 1),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SizedBox(
                 height: dynamicHeight(context, 0.4),
-                child: Image.network(
-                    "https://media.istockphoto.com/vectors/education-logo-vector-id1181311065?k=20&m=1181311065&s=612x612&w=0&h=FtFo5zskhXpq7YHM5KC28ncMXopUnhiIgNYNUhM4KCI="),
+                child: Image.asset("assets/school.png"),
               ),
               inputText("Email"),
               inputText("Password", password: true),
@@ -43,7 +42,7 @@ class HomePage extends StatelessWidget {
               RichText(
                   text: TextSpan(children: [
                 TextSpan(
-                    text: "You don't have any Account?",
+                    text: "You don't have any Account? ",
                     style: TextStyle(color: myBlack.withOpacity(0.3))),
                 const TextSpan(
                     text: "Register", style: TextStyle(color: Colors.blue))
