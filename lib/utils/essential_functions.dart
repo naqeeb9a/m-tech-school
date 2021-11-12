@@ -26,7 +26,7 @@ categoryCard(context, outerSizeH, outerSizeW, innerSizeH, innerSizeW,
                 color: colorDynamic.withOpacity(0.5),
                 spreadRadius: 4,
                 blurRadius: 8,
-                offset: Offset(0, 3), // changes position of shadow
+                offset: const Offset(0, 3), // changes position of shadow
               ),
             ],
           ),
@@ -150,5 +150,17 @@ inputText(text, userCredentials, {password = false, function}) {
     onSaved: (value) {
       userCredentials.add(value);
     },
+  );
+}
+
+dynamic bar(text) {
+  return AppBar(
+    title: Text(
+      text,
+      style: const TextStyle(color: myBlack),
+    ),
+    iconTheme: const IconThemeData(color: myBlack),
+    backgroundColor: Colors.transparent,
+    elevation: 0,
   );
 }

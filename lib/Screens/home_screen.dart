@@ -112,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     categoryCard(
                         context,
-                        0.4,
+                        0.41,
                         0.5,
                         0.38,
                         0.43,
@@ -123,7 +123,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         0.2,
                         0.7,
                         check: true, function: () {
-                      push(context, const EventsPage());
+                      push(
+                          context,
+                          EventsPage(
+                            school: school,
+                            id: id,
+                          ));
                     }),
                     categoryCard(
                         context,
