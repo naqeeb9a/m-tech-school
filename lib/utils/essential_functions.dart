@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
-
 import 'config.dart';
 
 categoryCard(context, outerSizeH, outerSizeW, innerSizeH, innerSizeW,
-    colorDynamic, text1, text2, image, imageH, imageW,
+    colorDynamic, text1, image, imageH, imageW,
     {check = false, function}) {
   return GestureDetector(
     onTap: function,
@@ -46,14 +45,6 @@ categoryCard(context, outerSizeH, outerSizeW, innerSizeH, innerSizeW,
                   style: TextStyle(
                       fontSize: dynamicWidth(context, 0.05), color: myWhite),
                 ),
-                // SizedBox(
-                //   height: dynamicHeight(context, 0.01),
-                // ),
-                // Text(
-                //   text2,
-                //   style: TextStyle(
-                //       fontSize: dynamicWidth(context, 0.03), color: myWhite),
-                // ),
                 SizedBox(
                   height: dynamicHeight(context, 0.03),
                 ),
@@ -172,12 +163,14 @@ eventPageCards(context, index, snapshot) {
         horizontal: dynamicWidth(context, 0.1)),
     height: dynamicHeight(context, 0.25),
     decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10), border: Border.all(width: 1)),
+        color: myWhite,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(width: 1)),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
-          snapshot.data["data"][context]["title"],
+          snapshot.data["data"][index]["title"],
           textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: dynamicWidth(context, 0.05),

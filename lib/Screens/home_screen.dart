@@ -49,11 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: (_loading == true)
-          ? Center(
-              child: SizedBox(
-                  width: dynamicWidth(context, 0.3),
-                  child: const LinearProgressIndicator()),
-            )
+          ? customLoader(context)
           : SafeArea(
               child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -80,7 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         0.43,
                         Colors.lightBlue,
                         "EXAMS",
-                        "123 Lessons 12 Subjects",
                         "assets/teacher.png",
                         0.2,
                         0.3, function: () {
@@ -99,30 +94,25 @@ class _HomeScreenState extends State<HomeScreen> {
                         0.43,
                         const Color(0xff2ca896),
                         "FEE DETAILS",
-                        "123 practices 12 Example",
                         "assets/practice.png",
                         0.18,
                         0.5, function: () {
-                      push(context, const FeeDetailPage());
+                      push(
+                        context,
+                        FeeDetailPage(
+                          school: school,
+                          id: id,
+                        ),
+                      );
                     }),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    categoryCard(
-                        context,
-                        0.41,
-                        0.5,
-                        0.38,
-                        0.43,
-                        Colors.orange,
-                        "EVENTS",
-                        "123 practices 12 Example",
-                        "assets/games.png",
-                        0.2,
-                        0.7,
-                        check: true, function: () {
+                    categoryCard(context, 0.41, 0.5, 0.38, 0.43, Colors.orange,
+                        "EVENTS", "assets/games.png", 0.2, 0.7, check: true,
+                        function: () {
                       push(
                           context,
                           EventsPage(
@@ -138,7 +128,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         0.43,
                         Colors.deepPurple,
                         "ATTENDANCE",
-                        "123 Lessons 12 Subjects",
                         "assets/homework.png",
                         0.2,
                         0.4,
