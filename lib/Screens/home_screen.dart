@@ -3,7 +3,8 @@ import 'package:mtech_school_app/Screens/attendance_page.dart';
 import 'package:mtech_school_app/Screens/events_page.dart';
 import 'package:mtech_school_app/Screens/exams_page.dart';
 import 'package:mtech_school_app/Screens/fee_page.dart';
-import 'package:mtech_school_app/Screens/home_page.dart';
+import 'package:mtech_school_app/Screens/login_page.dart';
+import 'package:mtech_school_app/Screens/parents_profile.dart';
 import 'package:mtech_school_app/utils/app_routes.dart';
 import 'package:mtech_school_app/utils/essential_functions.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
@@ -20,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String id = "";
   String school = "";
   bool _loading = true;
+
   @override
   void initState() {
     super.initState();
@@ -32,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (saveUser.getString("loginInfo") == null) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-              builder: (BuildContext context) => const HomePage()),
+              builder: (BuildContext context) => const LoginPage()),
           (Route<dynamic> route) => false);
     } else {
       setState(() {
@@ -60,11 +62,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: EdgeInsets.symmetric(
                       horizontal: dynamicWidth(context, 0.03),
                       vertical: dynamicHeight(context, 0.01)),
-                  child: header(context, () async {
-                    SharedPreferences saveUser =
-                        await SharedPreferences.getInstance();
-                    saveUser.clear();
-                    checkLoginStatus();
+                  child: header(context, () {
+                    push(
+                      context,
+                      const ParentsProfile(),
+                    );
                   }),
                 ),
                 Row(

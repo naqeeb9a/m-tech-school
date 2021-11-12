@@ -19,7 +19,17 @@ categoryCard(context, outerSizeH, outerSizeW, innerSizeH, innerSizeW,
           height: dynamicHeight(context, innerSizeH),
           width: dynamicWidth(context, innerSizeW),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15), color: colorDynamic),
+            borderRadius: BorderRadius.circular(15),
+            color: colorDynamic,
+            boxShadow: [
+              BoxShadow(
+                color: colorDynamic.withOpacity(0.5),
+                spreadRadius: 4,
+                blurRadius: 8,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
           child: Padding(
             padding: EdgeInsets.all(dynamicWidth(context, 0.02)),
             child: Column(
