@@ -180,10 +180,56 @@ eventPageCards(context, index, snapshot) {
           thickness: 1,
           color: myBlack,
         ),
-        Text(snapshot.data["data"][index]["classes"]),
-        Text(snapshot.data["data"][index]["venue"]),
-        Text(snapshot.data["data"][index]["start_date_time"]),
-        Text(snapshot.data["data"][index]["end_date_time"])
+        SizedBox(
+          height: dynamicHeight(context, 0.15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  Text("Classes"),
+                  Text("Venue"),
+                  Text("Start"),
+                  Text("End"),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  Text(":"),
+                  Text(":"),
+                  Text(":"),
+                  Text(":"),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    snapshot.data["data"][index]["classes"],
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    snapshot.data["data"][index]["venue"],
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    snapshot.data["data"][index]["start_date_time"],
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    snapshot.data["data"][index]["end_date_time"],
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        )
       ],
     ),
   );
