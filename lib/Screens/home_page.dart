@@ -1,97 +1,108 @@
 import 'package:flutter/material.dart';
 import 'package:mtech_school_app/Screens/home_screen.dart';
 import 'package:mtech_school_app/utils/config.dart';
+import 'package:mtech_school_app/utils/essential_functions.dart';
+import 'package:mtech_school_app/utils/login_logout.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final _formKey = GlobalKey<FormState>();
+
+  bool loading = false;
+
+  @override
   Widget build(BuildContext context) {
+    var userCredentials = [];
     return Scaffold(
       backgroundColor: myWhite,
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: dynamicWidth(context, 0.1)),
-          height: dynamicHeight(context, 1),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SizedBox(
-                height: dynamicHeight(context, 0.4),
-                child: Image.asset("assets/school.png"),
+      body: (loading == true)
+          ? Center(
+              child: SizedBox(
+                width: dynamicWidth(context, 0.3),
+                child: const LinearProgressIndicator(),
               ),
-              inputText("Email"),
-              inputText("Password", password: true),
-              Text(
-                "Forgot Password?",
-                style: TextStyle(color: myBlack.withOpacity(0.3)),
-              ),
-              SizedBox(
-                height: dynamicHeight(context, 0.01),
-              ),
-              functionalButtons(context, "Login", Icons.arrow_forward,
-                  const Color(0xff6dc9de), Colors.blue, function: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const HomeScreen()));
-              }),
-              functionalButtons(context, "Login with Facebook", Icons.facebook,
-                  const Color(0xff014b80), const Color(0xff014b80)),
-              RichText(
-                  text: TextSpan(children: [
-                TextSpan(
-                    text: "You don't have any Account? ",
-                    style: TextStyle(color: myBlack.withOpacity(0.3))),
-                const TextSpan(
-                    text: "Register", style: TextStyle(color: Colors.blue))
-              ]))
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  functionalButtons(context, text, icon, color1, color2, {function}) {
-    return ElevatedButton(
-        onPressed: function,
-        style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.zero,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
-        child: Ink(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [color1, color2]),
-                borderRadius: BorderRadius.circular(5)),
-            child: Container(
-              width: dynamicWidth(context, 1),
-              height: dynamicHeight(context, 0.07),
-              alignment: Alignment.center,
-              margin:
-                  EdgeInsets.symmetric(horizontal: dynamicWidth(context, 0.05)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    text,
-                    style: TextStyle(
-                        fontSize: dynamicWidth(context, 0.04), color: myWhite),
+            )
+          : SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: dynamicWidth(context, 0.1)),
+                height: dynamicHeight(context, 1),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        height: dynamicHeight(context, 0.4),
+                        child: Image.asset("assets/school.png"),
+                      ),
+                      inputText("Email", userCredentials, function: (value) {
+                        if (value.isEmpty) {
+                          return "Enter a Username";
+                        }
+                      }),
+                      inputText("Password", userCredentials, password: true,
+                          function: (value) {
+                        if (value.isEmpty) {
+                          return "password cannot be empty";
+                        }
+                      }),
+                      Text(
+                        "Forgot Password?",
+                        style: TextStyle(color: myBlack.withOpacity(0.3)),
+                      ),
+                      SizedBox(
+                        height: dynamicHeight(context, 0.01),
+                      ),
+                      functionalButtons(
+                          context,
+                          "Login",
+                          Icons.arrow_forward,
+                          const Color(0xff6dc9de),
+                          Colors.blue, function: () async {
+                        setState(() {
+                          loading = true;
+                        });
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+                          var response = await loginUser(userCredentials);
+                          if (response["success"] == true) {
+                            SharedPreferences saveUser =
+                                await SharedPreferences.getInstance();
+                            saveUser.setString(
+                                "loginInfo", response["user"]["id"].toString());
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        const HomeScreen()),
+                                (Route<dynamic> route) => false);
+                          } else {
+                            setState(() {
+                              loading = false;
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Username Password invalid')),
+                            );
+                          }
+                        }
+                      }),
+                      SizedBox(
+                        height: dynamicHeight(context, 0.01),
+                      ),
+                    ],
                   ),
-                  Icon(
-                    icon,
-                    color: myWhite,
-                  )
-                ],
+                ),
               ),
-            )));
-  }
-
-  inputText(text, {password = false}) {
-    return TextFormField(
-      obscureText: password,
-      decoration: InputDecoration(labelText: text),
+            ),
     );
   }
 }
