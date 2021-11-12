@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   checkLoginStatus() async {
     SharedPreferences saveUser = await SharedPreferences.getInstance();
+    SharedPreferences saveUserSchool = await SharedPreferences.getInstance();
     if (saveUser.getString("loginInfo") == null) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
@@ -36,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
     } else {
       setState(() {
         id = saveUser.getString("loginInfo").toString();
+        school = saveUserSchool.getString("school").toString();
         _loading = false;
       });
     }

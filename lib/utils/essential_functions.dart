@@ -7,7 +7,7 @@ categoryCard(context, outerSizeH, outerSizeW, innerSizeH, innerSizeW,
     colorDynamic, text1, text2, image, imageH, imageW,
     {check = false, function}) {
   return GestureDetector(
-    onTap: () {},
+    onTap: function,
     child: Stack(
       alignment: Alignment.center,
       children: [
@@ -75,7 +75,7 @@ categoryCard(context, outerSizeH, outerSizeW, innerSizeH, innerSizeW,
   );
 }
 
-header(context,function) {
+header(context, function) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [

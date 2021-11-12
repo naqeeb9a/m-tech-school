@@ -77,8 +77,12 @@ class _HomePageState extends State<HomePage> {
                           if (response["success"] == true) {
                             SharedPreferences saveUser =
                                 await SharedPreferences.getInstance();
+                            SharedPreferences saveUserSchool =
+                                await SharedPreferences.getInstance();
                             saveUser.setString(
                                 "loginInfo", response["user"]["id"].toString());
+                            saveUserSchool.setString(
+                                "school", response["school"].toString());
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
