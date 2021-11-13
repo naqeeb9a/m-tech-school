@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mtech_school_app/Screens/events_page.dart';
 import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/utils/config.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
@@ -9,6 +8,7 @@ import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 class ParentsProfile extends StatefulWidget {
   final String school;
   final String id;
+
   const ParentsProfile({Key? key, required this.school, required this.id})
       : super(key: key);
 
@@ -340,19 +340,19 @@ tabViewCustomCardsColumn(context,
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text((check == true) ? text : snapshot["father"]["name"]),
-        Text((check == true) ? text1 : snapshot["father"]["cnic_no"]),
-        Text((check == true) ? text2 : snapshot["father"]["ntn"]),
-        Text((check == true) ? text3 : snapshot["father"]["marital_status"]),
-        Text((check == true) ? text4 : snapshot["father"]["email"]),
-        Text((check == true) ? text5 : snapshot["father"]["qualification"]),
-        Text((check == true) ? text6 : snapshot["father"]["company"]),
-        Text((check == true) ? text7 : snapshot["father"]["department"]),
-        Text((check == true) ? text8 : snapshot["father"]["designation"]),
-        Text((check == true) ? text9 : snapshot["father"]["address"]),
-        Text((check == true) ? text10 : snapshot["father"]["postal_code"]),
-        Text((check == true) ? text11 : snapshot["father"]["phone"]),
-        Text((check == true) ? text12 : snapshot["father"]["mobile"]),
+        Text(check == true ? text : snapshot["father"]["name"]),
+        Text(check == true ? text1 : snapshot["father"]["cnic_no"]),
+        Text(check == true ? text2 : snapshot["father"]["ntn"]),
+        Text(check == true ? text3 : snapshot["father"]["marital_status"]),
+        Text(check == true ? text4 : snapshot["father"]["email"]),
+        Text(check == true ? text5 : snapshot["father"]["qualification"]),
+        Text(check == true ? text6 : snapshot["father"]["company"]),
+        Text(check == true ? text7 : snapshot["father"]["department"]),
+        Text(check == true ? text8 : snapshot["father"]["designation"]),
+        Text(check == true ? text9 : snapshot["father"]["address"]),
+        Text(check == true ? text10 : snapshot["father"]["postal_code"]),
+        Text(check == true ? text11 : snapshot["father"]["phone"]),
+        Text(check == true ? text12 : snapshot["father"]["mobile"]),
       ],
     ),
   );
