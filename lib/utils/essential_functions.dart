@@ -144,14 +144,14 @@ inputText(text, userCredentials, {password = false, function}) {
   );
 }
 
-bar(text) {
+bar(text, {check = false}) {
   return AppBar(
     title: Text(
       text,
       style: const TextStyle(color: myBlack),
     ),
     iconTheme: const IconThemeData(color: myBlack),
-    backgroundColor: Colors.transparent,
+    backgroundColor: (check == true) ? Colors.amber : Colors.transparent,
     elevation: 0,
   );
 }

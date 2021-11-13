@@ -4,6 +4,7 @@ import 'package:mtech_school_app/Screens/events_page.dart';
 import 'package:mtech_school_app/Screens/exams_page.dart';
 import 'package:mtech_school_app/Screens/fee_page.dart';
 import 'package:mtech_school_app/Screens/login_page.dart';
+import 'package:mtech_school_app/Screens/notification_page.dart';
 import 'package:mtech_school_app/Screens/parents_profile.dart';
 import 'package:mtech_school_app/utils/app_routes.dart';
 import 'package:mtech_school_app/utils/essential_functions.dart';
@@ -64,9 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       const ParentsProfile(),
                     );
                   }),
-                ),
-                SizedBox(
-                  height: dynamicHeight(context, 0.03),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -140,10 +138,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 SizedBox(
-                  height: dynamicHeight(context, 0.03),
+                  height: dynamicHeight(context, 0.05),
                 )
               ],
             )),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          push(context,  NotificationsPage(school: school,id: id,));
+        },
+        child: const Icon(Icons.notifications),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
