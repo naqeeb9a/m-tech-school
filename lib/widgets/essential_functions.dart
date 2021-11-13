@@ -148,10 +148,10 @@ bar(text, {check = false}) {
   return AppBar(
     title: Text(
       text,
-      style: const TextStyle(color: myBlack),
+      style: TextStyle(color: (check == true) ? myWhite : myBlack),
     ),
-    iconTheme: const IconThemeData(color: myBlack),
-    backgroundColor: (check == true) ? Colors.amber : Colors.transparent,
+    iconTheme: IconThemeData(color: (check == true) ? myWhite : myBlack),
+    backgroundColor: (check == true) ? primaryBlue : Colors.transparent,
     elevation: 0,
   );
 }
@@ -163,9 +163,9 @@ eventPageCards(context, index, snapshot) {
         horizontal: dynamicWidth(context, 0.1)),
     height: dynamicHeight(context, 0.25),
     decoration: BoxDecoration(
-        color: myWhite,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(width: 1)),
+      color: myWhite,
+      borderRadius: BorderRadius.circular(10),
+    ),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -178,7 +178,6 @@ eventPageCards(context, index, snapshot) {
         ),
         const Divider(
           thickness: 1,
-          color: myBlack,
         ),
         SizedBox(
           height: dynamicHeight(context, 0.15),

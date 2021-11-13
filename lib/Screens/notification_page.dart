@@ -26,7 +26,7 @@ class NotificationsPage extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(50),
                     bottomRight: Radius.circular(50)),
-                color: Colors.amber),
+                color: primaryBlue),
           ),
           Column(
             children: [
@@ -67,17 +67,44 @@ notificationsCard(context, index, snapshot) {
           Container(
             width: dynamicWidth(context, 0.85),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15), color: myWhite),
+              borderRadius: BorderRadius.circular(15),
+              color: myWhite,
+              boxShadow: [
+                BoxShadow(
+                  color: primaryBlue.withOpacity(0.3),
+                  spreadRadius: 4,
+                  blurRadius: 8,
+                  offset: const Offset(0, 3), // changes position of shadow
+                ),
+              ],
+            ),
             padding: EdgeInsets.all(dynamicWidth(context, 0.05)),
             // margin: EdgeInsets.only(top: dynamicHeight(context, 0.03)),
             margin: EdgeInsets.all(dynamicHeight(context, 0.03)),
             child: Html(data: snapshot[index]["notice"]),
           ),
-          CircleAvatar(
-              radius: dynamicWidth(context, 0.1),
-              backgroundImage: const NetworkImage(
-                "https://1q3b4h3e3g3t30d8621ylzxr-wpengine.netdna-ssl.com/wp-content/uploads/2021/05/SAEL-Portrait-360x360.jpg",
-              )),
+          Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: primaryBlue.withOpacity(0.3),
+                  spreadRadius: 4,
+                  blurRadius: 8,
+                  offset: const Offset(0, 3), // changes position of shadow
+                ),
+              ],
+            ),
+            child: CircleAvatar(
+              radius: dynamicWidth(context, 0.11),
+              backgroundColor: myWhite,
+              child: CircleAvatar(
+                  radius: dynamicWidth(context, 0.1),
+                  backgroundImage: const NetworkImage(
+                    "https://1q3b4h3e3g3t30d8621ylzxr-wpengine.netdna-ssl.com/wp-content/uploads/2021/05/SAEL-Portrait-360x360.jpg",
+                  )),
+            ),
+          ),
         ],
       ),
     ),
