@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mtech_school_app/Screens/events_page.dart';
+import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/utils/config.dart';
-import 'package:mtech_school_app/utils/essential_functions.dart';
-import 'package:mtech_school_app/utils/student_data_calls.dart';
+import 'package:mtech_school_app/widgets/essential_functions.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
 
 class ExamsPage extends StatelessWidget {
   final String school;
   final String id;
+
   const ExamsPage({Key? key, required this.school, required this.id})
       : super(key: key);
 
@@ -28,7 +29,7 @@ class ExamsPage extends StatelessWidget {
             SizedBox(
               height: dynamicHeight(context, 0.1),
               child: FutureBuilder(
-                future: getStudentDetails("exams", school, id),
+                future: ApiData().getStudentDetails("exams", school, id),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return ListView.builder(

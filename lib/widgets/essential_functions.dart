@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
-import 'config.dart';
+import '../utils/config.dart';
 
 categoryCard(context, outerSizeH, outerSizeW, innerSizeH, innerSizeW,
     colorDynamic, text1, image, imageH, imageW,

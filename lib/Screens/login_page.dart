@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mtech_school_app/Screens/home_screen.dart';
 import 'package:mtech_school_app/utils/config.dart';
-import 'package:mtech_school_app/utils/essential_functions.dart';
-import 'package:mtech_school_app/utils/login_logout.dart';
+import 'package:mtech_school_app/widgets/essential_functions.dart';
+import 'package:mtech_school_app/widgets/login_logout.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mtech_school_app/Screens/events_page.dart';
+import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/utils/config.dart';
-import 'package:mtech_school_app/utils/essential_functions.dart';
-import 'package:mtech_school_app/utils/student_data_calls.dart';
+import 'package:mtech_school_app/widgets/essential_functions.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
 
 class FeeDetailPage extends StatelessWidget {
@@ -28,7 +28,7 @@ class FeeDetailPage extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(top: dynamicHeight(context, 0.02)),
               child: FutureBuilder(
-                future: getStudentDetails("fees", school, id),
+                future: ApiData().getStudentDetails("fees", school, id),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return ListView.builder(

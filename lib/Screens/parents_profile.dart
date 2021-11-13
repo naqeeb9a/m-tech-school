@@ -107,7 +107,7 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                       elevation: 0.0,
                                       bottom: TabBar(
                                         labelColor: primaryBlue,
-                                        unselectedLabelColor: myBlack,
+                                        unselectedLabelColor: primaryLiteBlue,
                                         labelStyle: const TextStyle(
                                           fontWeight: FontWeight.w800,
                                         ),
@@ -154,10 +154,10 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                               ),
                                               child: FutureBuilder(
                                                   future: ApiData()
-                                                      .getFatherProfileData(
-                                                    school,
-                                                    userId,
-                                                  ),
+                                                      .getStudentDetails(
+                                                          "parentsProfile",
+                                                          school,
+                                                          userId),
                                                   builder: (context, snapshot) {
                                                     if (snapshot.hasData) {
                                                       return Row(
@@ -483,7 +483,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["father"]
+                                                                          [
                                                                           "name"]
                                                                       .toString(),
                                                                 ),
@@ -498,7 +499,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["father"]
+                                                                          [
                                                                           "cnic_no"]
                                                                       .toString(),
                                                                 ),
@@ -513,7 +515,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["father"]
+                                                                          [
                                                                           "ntn"]
                                                                       .toString(),
                                                                 ),
@@ -528,7 +531,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["father"]
+                                                                          [
                                                                           "marital_status"]
                                                                       .toString(),
                                                                 ),
@@ -543,7 +547,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["father"]
+                                                                          [
                                                                           "qualification"]
                                                                       .toString(),
                                                                 ),
@@ -558,7 +563,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["father"]
+                                                                          [
                                                                           "company"]
                                                                       .toString(),
                                                                 ),
@@ -573,7 +579,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["father"]
+                                                                          [
                                                                           "department"]
                                                                       .toString(),
                                                                 ),
@@ -588,7 +595,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["father"]
+                                                                          [
                                                                           "designation"]
                                                                       .toString(),
                                                                 ),
@@ -603,7 +611,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["father"]
+                                                                          [
                                                                           "address"]
                                                                       .toString(),
                                                                 ),
@@ -618,7 +627,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["father"]
+                                                                          [
                                                                           "postal_code"]
                                                                       .toString(),
                                                                 ),
@@ -633,7 +643,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["father"]
+                                                                          [
                                                                           "phone"]
                                                                       .toString(),
                                                                 ),
@@ -648,7 +659,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["father"]
+                                                                          [
                                                                           "mobile"]
                                                                       .toString(),
                                                                 ),
@@ -663,7 +675,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["father"]
+                                                                          [
                                                                           "email"]
                                                                       .toString(),
                                                                 ),
@@ -700,14 +713,16 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                     dynamicWidth(context, .04),
                                               ),
                                               child: FutureBuilder(
-                                                  future:
-                                                      ApiData().getProfileData(
-                                                    school,
-                                                    userId,
-                                                  ),
+                                                  future: ApiData()
+                                                      .getStudentDetails(
+                                                          "profile",
+                                                          school,
+                                                          userId),
                                                   builder: (context, snapshot) {
                                                     if (snapshot.hasData) {
-                                                      return Text(" ");
+                                                      return Text((snapshot.data
+                                                              as Map)["data"]
+                                                          .toString());
                                                     }
                                                     return Padding(
                                                       padding:
@@ -737,10 +752,10 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                               ),
                                               child: FutureBuilder(
                                                   future: ApiData()
-                                                      .getMotherProfileData(
-                                                    school,
-                                                    userId,
-                                                  ),
+                                                      .getStudentDetails(
+                                                          "parentsProfile",
+                                                          school,
+                                                          userId),
                                                   builder: (context, snapshot) {
                                                     if (snapshot.hasData) {
                                                       return Row(
@@ -1066,7 +1081,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["mother"]
+                                                                          [
                                                                           "name"]
                                                                       .toString(),
                                                                 ),
@@ -1081,7 +1097,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["mother"]
+                                                                          [
                                                                           "cnic_no"]
                                                                       .toString(),
                                                                 ),
@@ -1096,7 +1113,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["mother"]
+                                                                          [
                                                                           "ntn"]
                                                                       .toString(),
                                                                 ),
@@ -1111,7 +1129,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["mother"]
+                                                                          [
                                                                           "marital_status"]
                                                                       .toString(),
                                                                 ),
@@ -1126,7 +1145,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["mother"]
+                                                                          [
                                                                           "qualification"]
                                                                       .toString(),
                                                                 ),
@@ -1141,7 +1161,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["mother"]
+                                                                          [
                                                                           "company"]
                                                                       .toString(),
                                                                 ),
@@ -1156,7 +1177,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["mother"]
+                                                                          [
                                                                           "department"]
                                                                       .toString(),
                                                                 ),
@@ -1171,7 +1193,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["mother"]
+                                                                          [
                                                                           "designation"]
                                                                       .toString(),
                                                                 ),
@@ -1186,7 +1209,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["mother"]
+                                                                          [
                                                                           "address"]
                                                                       .toString(),
                                                                 ),
@@ -1201,7 +1225,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["mother"]
+                                                                          [
                                                                           "postal_code"]
                                                                       .toString(),
                                                                 ),
@@ -1216,7 +1241,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["mother"]
+                                                                          [
                                                                           "phone"]
                                                                       .toString(),
                                                                 ),
@@ -1231,7 +1257,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["mother"]
+                                                                          [
                                                                           "mobile"]
                                                                       .toString(),
                                                                 ),
@@ -1246,7 +1273,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 ),
                                                                 child: Text(
                                                                   (snapshot.data
-                                                                              as Map)[
+                                                                              as Map)["mother"]
+                                                                          [
                                                                           "email"]
                                                                       .toString(),
                                                                 ),
@@ -1288,11 +1316,12 @@ class _ParentsProfileState extends State<ParentsProfile> {
                               children: [
                                 CircleAvatar(
                                   radius: dynamicHeight(context, .07),
-                                  backgroundColor: Colors.blue,
+                                  backgroundColor: primaryBlue,
                                   child: ClipOval(
                                     child: Icon(
                                       Icons.person,
                                       size: dynamicHeight(context, .1),
+                                      color: myWhite,
                                     ),
                                   ),
                                 ),

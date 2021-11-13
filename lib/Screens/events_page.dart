@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:mtech_school_app/utils/essential_functions.dart';
-import 'package:mtech_school_app/utils/student_data_calls.dart';
+import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
+import 'package:mtech_school_app/widgets/essential_functions.dart';
 
 import 'fee_page.dart';
 
 class EventsPage extends StatelessWidget {
   final String school;
   final String id;
+
   const EventsPage({Key? key, required this.school, required this.id})
       : super(key: key);
 
@@ -24,7 +25,7 @@ class EventsPage extends StatelessWidget {
             ),
           ),
           FutureBuilder(
-            future: getStudentDetails("events", school, id),
+            future: ApiData().getStudentDetails("events", school, id),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return ListView.builder(
