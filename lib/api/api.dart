@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 
 class ApiData {
   getStudentDetails(dynamic query, school, id) async {
-    print(query + school + id);
     var url = Uri.https('mschool.cmcmtech.com', '$query/$school/$id');
     var response = await http.get(url);
     if (response.statusCode == 200) {

@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: header(context, () {
                     push(
                       context,
-                      const ParentsProfile(),
+                      ParentsProfile(school: school, id: id),
                     );
                   }),
                 ),

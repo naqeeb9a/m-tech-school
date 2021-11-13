@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtech_school_app/Screens/events_page.dart';
 import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/utils/config.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
@@ -6,42 +7,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 class ParentsProfile extends StatefulWidget {
-  const ParentsProfile({Key? key}) : super(key: key);
+  final String school;
+  final String id;
+  const ParentsProfile({Key? key, required this.school, required this.id})
+      : super(key: key);
 
   @override
   _ParentsProfileState createState() => _ParentsProfileState();
 }
 
 class _ParentsProfileState extends State<ParentsProfile> {
-  dynamic school, userId, userProfile;
-
-  Future getPrefData() async {
-    var pref = await SharedPreferences.getInstance();
-    setState(() {
-      userId = pref.getString("loginInfo");
-      school = pref.getString("school");
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getPrefData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
       initialIndex: 1,
       child: Scaffold(
+        backgroundColor: myGrey,
         body: Stack(
           children: [
-            Container(
-              width: dynamicWidth(context, 1),
-              height: dynamicHeight(context, 1),
-              color: myGrey,
-            ),
             Container(
               width: dynamicWidth(context, 1),
               height: dynamicHeight(context, .32),
@@ -72,7 +56,7 @@ class _ParentsProfileState extends State<ParentsProfile> {
                           saveUser.clear();
                           // checkLoginStatus();
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.logout,
                         ),
                       )
@@ -169,548 +153,19 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                   future: ApiData()
                                                       .getStudentDetails(
                                                           "parentsProfile",
-                                                          school,
-                                                          userId),
+                                                          widget.school,
+                                                          widget.id),
                                                   builder: (context, snapshot) {
-                                                    if (snapshot.hasData) {
-                                                      return Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        children: [
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceEvenly,
-                                                            children: [
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Name"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "CNIC No"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text("ntn"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Marital Status"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Qualification"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Company"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Department"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Designation"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Address"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Postal Code"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Phone"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Mobile"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Email"),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceEvenly,
-                                                            children: [
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["father"]
-                                                                          [
-                                                                          "name"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["father"]
-                                                                          [
-                                                                          "cnic_no"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["father"]
-                                                                          [
-                                                                          "ntn"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["father"]
-                                                                          [
-                                                                          "marital_status"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["father"]
-                                                                          [
-                                                                          "qualification"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["father"]
-                                                                          [
-                                                                          "company"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["father"]
-                                                                          [
-                                                                          "department"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["father"]
-                                                                          [
-                                                                          "designation"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["father"]
-                                                                          [
-                                                                          "address"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["father"]
-                                                                          [
-                                                                          "postal_code"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["father"]
-                                                                          [
-                                                                          "phone"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["father"]
-                                                                          [
-                                                                          "mobile"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["father"]
-                                                                          [
-                                                                          "email"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      );
+                                                    if (snapshot
+                                                            .connectionState ==
+                                                        ConnectionState.done) {
+                                                      return tabViewCustomCards(
+                                                          context,
+                                                          snapshot.data);
+                                                    } else {
+                                                      return customLoader(
+                                                          context);
                                                     }
-                                                    return Padding(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                        vertical: dynamicHeight(
-                                                            context, .2),
-                                                        horizontal:
-                                                            dynamicWidth(
-                                                                context, .2),
-                                                      ),
-                                                      child:
-                                                          const LinearProgressIndicator(),
-                                                    );
                                                   }),
                                             ),
                                           ),
@@ -729,8 +184,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                   future: ApiData()
                                                       .getStudentDetails(
                                                           "profile",
-                                                          school,
-                                                          userId),
+                                                          widget.school,
+                                                          widget.id),
                                                   builder: (context, snapshot) {
                                                     if (snapshot.hasData) {
                                                       return Text((snapshot.data
@@ -767,535 +222,13 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                   future: ApiData()
                                                       .getStudentDetails(
                                                           "parentsProfile",
-                                                          school,
-                                                          userId),
+                                                          widget.school,
+                                                          widget.id),
                                                   builder: (context, snapshot) {
                                                     if (snapshot.hasData) {
-                                                      return Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        children: [
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceEvenly,
-                                                            children: [
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Name"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "CNIC No"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text("ntn"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Marital Status"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Qualification"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Company"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Department"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Designation"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Address"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Postal Code"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Phone"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Mobile"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                    "Email"),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceEvenly,
-                                                            children: [
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child:
-                                                                    Text(":"),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["mother"]
-                                                                          [
-                                                                          "name"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["mother"]
-                                                                          [
-                                                                          "cnic_no"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["mother"]
-                                                                          [
-                                                                          "ntn"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["mother"]
-                                                                          [
-                                                                          "marital_status"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["mother"]
-                                                                          [
-                                                                          "qualification"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["mother"]
-                                                                          [
-                                                                          "company"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["mother"]
-                                                                          [
-                                                                          "department"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["mother"]
-                                                                          [
-                                                                          "designation"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["mother"]
-                                                                          [
-                                                                          "address"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["mother"]
-                                                                          [
-                                                                          "postal_code"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["mother"]
-                                                                          [
-                                                                          "phone"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["mother"]
-                                                                          [
-                                                                          "mobile"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  vertical:
-                                                                      dynamicHeight(
-                                                                          context,
-                                                                          .006),
-                                                                ),
-                                                                child: Text(
-                                                                  (snapshot.data
-                                                                              as Map)["mother"]
-                                                                          [
-                                                                          "email"]
-                                                                      .toString(),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      );
+                                                      return tabViewCustomCards(
+                                                          context,
+                                                          snapshot.data);
                                                     }
                                                     return Padding(
                                                       padding:
@@ -1353,4 +286,74 @@ class _ParentsProfileState extends State<ParentsProfile> {
       ),
     );
   }
+}
+
+tabViewCustomCards(context, snapshot) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      tabViewCustomCardsColumn(context, check: true),
+      tabViewCustomCardsColumn(
+        context,
+        check: true,
+        text: ":",
+        text1: ":",
+        text2: ":",
+        text3: ":",
+        text4: ":",
+        text5: ":",
+        text6: ":",
+        text7: ":",
+        text8: ":",
+        text9: ":",
+        text10: ":",
+        text11: ":",
+        text12: ":",
+      ),
+      tabViewCustomCardsColumn(
+        context,
+        snapshot: snapshot,
+      )
+    ],
+  );
+}
+
+tabViewCustomCardsColumn(context,
+    {snapshot = "",
+    text = "Name",
+    text1 = "CNIC",
+    text2 = "NTN",
+    text3 = "Marital Status",
+    text4 = "Qualification",
+    text5 = "Company",
+    text6 = "Department",
+    text7 = "Designation",
+    text8 = "Address",
+    text9 = "Postal Code",
+    text10 = "Phone",
+    text11 = "Mobile",
+    text12 = "Email",
+    check = false}) {
+  return SizedBox(
+    height: dynamicHeight(context, 0.4),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text((check == true) ? text : snapshot["father"]["name"]),
+        Text((check == true) ? text1 : snapshot["father"]["cnic_no"]),
+        Text((check == true) ? text2 : snapshot["father"]["ntn"]),
+        Text((check == true) ? text3 : snapshot["father"]["marital_status"]),
+        Text((check == true) ? text4 : snapshot["father"]["email"]),
+        Text((check == true) ? text5 : snapshot["father"]["qualification"]),
+        Text((check == true) ? text6 : snapshot["father"]["company"]),
+        Text((check == true) ? text7 : snapshot["father"]["department"]),
+        Text((check == true) ? text8 : snapshot["father"]["designation"]),
+        Text((check == true) ? text9 : snapshot["father"]["address"]),
+        Text((check == true) ? text10 : snapshot["father"]["postal_code"]),
+        Text((check == true) ? text11 : snapshot["father"]["phone"]),
+        Text((check == true) ? text12 : snapshot["father"]["mobile"]),
+      ],
+    ),
+  );
 }
