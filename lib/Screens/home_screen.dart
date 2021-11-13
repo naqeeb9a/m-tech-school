@@ -10,6 +10,7 @@ import 'package:mtech_school_app/utils/app_routes.dart';
 import 'package:mtech_school_app/utils/config.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
 import 'package:mtech_school_app/widgets/essential_functions.dart';
+import 'package:mtech_school_app/widgets/loaders.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {

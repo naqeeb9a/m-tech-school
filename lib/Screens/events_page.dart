@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mtech_school_app/api/api.dart';
+import 'package:mtech_school_app/utils/config.dart';
+import 'package:mtech_school_app/widgets/clip_paths.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
 import 'package:mtech_school_app/widgets/essential_functions.dart';
-
-import 'fee_page.dart';
+import 'package:mtech_school_app/widgets/loaders.dart';
 
 class EventsPage extends StatelessWidget {
   final String school;
@@ -15,40 +16,37 @@ class EventsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: myGrey,
       appBar: bar("Events"),
       body: Stack(
         children: [
           ClipPath(
             clipper: MyClipper(false),
             child: Container(
-              color: Colors.orange,
+              color: primaryOrange,
             ),
           ),
-          FutureBuilder(
-            future: ApiData().getStudentDetails("events", school, id),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return ListView.builder(
-                    itemCount: snapshot.data["data"].length,
-                    itemBuilder: (context, index) {
-                      return eventPageCards(context, index, snapshot);
-                    });
-              } else {
-                return customLoader(context);
-              }
-            },
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: dynamicHeight(context, .03),
+            ),
+            child: FutureBuilder(
+              future: ApiData().getStudentDetails("events", school, id),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return ListView.builder(
+                      itemCount: snapshot.data["data"].length,
+                      itemBuilder: (context, index) {
+                        return eventPageCards(context, index, snapshot);
+                      });
+                } else {
+                  return customLoader(context, color: myBlack);
+                }
+              },
+            ),
           ),
         ],
       ),
     );
   }
-}
-
-customLoader(context) {
-  return Center(
-    child: SizedBox(
-      width: dynamicWidth(context, 0.3),
-      child: const LinearProgressIndicator(),
-    ),
-  );
 }

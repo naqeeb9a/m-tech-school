@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mtech_school_app/Screens/events_page.dart';
 import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/utils/config.dart';
-import 'package:mtech_school_app/widgets/essential_functions.dart';
+import 'package:mtech_school_app/widgets/clip_paths.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
+import 'package:mtech_school_app/widgets/essential_functions.dart';
+import 'package:mtech_school_app/widgets/loaders.dart';
 
 class FeeDetailPage extends StatelessWidget {
   final String school;
@@ -133,21 +135,4 @@ class FeeDetailPage extends StatelessWidget {
       ),
     );
   }
-}
-
-class MyClipper extends CustomClipper<Path> {
-  final bool sizeCustom;
-  MyClipper(this.sizeCustom);
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-    path.moveTo(0, size.height * 0.33);
-    path.lineTo(0, size.height);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, (sizeCustom == true) ? 0 : size.height);
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }

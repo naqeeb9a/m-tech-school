@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
+
 import '../utils/config.dart';
 
 categoryCard(context, outerSizeH, outerSizeW, innerSizeH, innerSizeW,
@@ -150,6 +151,7 @@ bar(text, {check = false}) {
       text,
       style: TextStyle(color: (check == true) ? myWhite : myBlack),
     ),
+    centerTitle: true,
     iconTheme: IconThemeData(color: (check == true) ? myWhite : myBlack),
     backgroundColor: (check == true) ? primaryBlue : Colors.transparent,
     elevation: 0,
@@ -159,76 +161,108 @@ bar(text, {check = false}) {
 eventPageCards(context, index, snapshot) {
   return Container(
     margin: EdgeInsets.symmetric(
-        vertical: dynamicHeight(context, 0.01),
-        horizontal: dynamicWidth(context, 0.1)),
-    height: dynamicHeight(context, 0.25),
+      vertical: dynamicHeight(context, 0.01),
+      horizontal: dynamicWidth(context, 0.1),
+    ),
+    height: dynamicHeight(context, 0.224),
     decoration: BoxDecoration(
       color: myWhite,
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(
+        dynamicWidth(context, .04),
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: myBlack.withOpacity(0.3),
+          spreadRadius: 2,
+          blurRadius: 8,
+          offset: const Offset(0, 3), // changes position of shadow
+        ),
+      ],
     ),
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          snapshot.data["data"][index]["title"],
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: dynamicWidth(context, 0.05),
-              fontWeight: FontWeight.bold),
-        ),
-        const Divider(
-          thickness: 1,
-        ),
-        SizedBox(
-          height: dynamicHeight(context, 0.15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Text("Classes"),
-                  Text("Venue"),
-                  Text("Start"),
-                  Text("End"),
-                ],
+        Container(
+          width: dynamicWidth(context, 1),
+          height: dynamicHeight(context, .07),
+          decoration: BoxDecoration(
+            color: myBlack,
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(
+                dynamicWidth(context, .04),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Text(":"),
-                  Text(":"),
-                  Text(":"),
-                  Text(":"),
-                ],
+              topLeft: Radius.circular(
+                dynamicWidth(context, .04),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    snapshot.data["data"][index]["classes"],
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    snapshot.data["data"][index]["venue"],
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    snapshot.data["data"][index]["start_date_time"],
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    snapshot.data["data"][index]["end_date_time"],
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ],
+            ),
           ),
-        )
+          child: Center(
+            child: Text(
+              snapshot.data["data"][index]["title"],
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: myWhite,
+                fontSize: dynamicWidth(context, 0.044),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+            bottom: dynamicHeight(context, .006),
+          ),
+          child: SizedBox(
+            height: dynamicHeight(context, 0.14),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: const [
+                    Text("Classes"),
+                    Text("Venue"),
+                    Text("Start"),
+                    Text("End"),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: const [
+                    Text(":"),
+                    Text(":"),
+                    Text(":"),
+                    Text(":"),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      snapshot.data["data"][index]["classes"],
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      snapshot.data["data"][index]["venue"],
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      snapshot.data["data"][index]["start_date_time"],
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      snapshot.data["data"][index]["end_date_time"],
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     ),
   );

@@ -5,6 +5,7 @@ import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/utils/config.dart';
 import 'package:mtech_school_app/widgets/essential_functions.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
+import 'package:mtech_school_app/widgets/loaders.dart';
 
 class NotificationsPage extends StatelessWidget {
   final String school;
