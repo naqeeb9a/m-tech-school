@@ -64,6 +64,19 @@ class _ParentsProfileState extends State<ParentsProfile> {
                     centerTitle: true,
                     backgroundColor: noColor,
                     elevation: 0.0,
+                    actions: [
+                      InkWell(
+                        onTap: () async {
+                          SharedPreferences saveUser =
+                              await SharedPreferences.getInstance();
+                          saveUser.clear();
+                          // checkLoginStatus();
+                        },
+                        child: Icon(
+                          Icons.logout,
+                        ),
+                      )
+                    ],
                   ),
                   Expanded(
                     child: SizedBox(
@@ -1341,8 +1354,3 @@ class _ParentsProfileState extends State<ParentsProfile> {
     );
   }
 }
-
-// SharedPreferences saveUser =
-//     await SharedPreferences.getInstance();
-// saveUser.clear();
-// checkLoginStatus();

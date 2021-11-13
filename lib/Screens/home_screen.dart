@@ -8,8 +8,8 @@ import 'package:mtech_school_app/Screens/notification_page.dart';
 import 'package:mtech_school_app/Screens/parents_profile.dart';
 import 'package:mtech_school_app/utils/app_routes.dart';
 import 'package:mtech_school_app/utils/config.dart';
-import 'package:mtech_school_app/widgets/essential_functions.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
+import 'package:mtech_school_app/widgets/essential_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -70,17 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    categoryCard(
-                        context,
-                        0.33,
-                        0.5,
-                        0.3,
-                        0.45,
-                        primaryBlue,
-                        "EXAMS",
-                        "assets/teacher.png",
-                        0.2,
-                        0.3, function: () {
+                    categoryCard(context, 0.33, 0.5, 0.3, 0.45, primaryBlue,
+                        "EXAMS", "assets/teacher.png", 0.2, 0.3, function: () {
                       push(
                           context,
                           ExamsPage(
@@ -122,17 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             id: id,
                           ));
                     }),
-                    categoryCard(
-                        context,
-                        0.33,
-                        0.5,
-                        0.3,
-                        0.45,
-                        primaryPurple,
-                        "ATTENDANCE",
-                        "assets/homework.png",
-                        0.2,
-                        0.4,
+                    categoryCard(context, 0.33, 0.5, 0.3, 0.45, primaryPurple,
+                        "ATTENDANCE", "assets/homework.png", 0.2, 0.4,
                         check: true, function: () {
                       push(context, const AttendancePage());
                     }),
@@ -145,7 +127,12 @@ class _HomeScreenState extends State<HomeScreen> {
             )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          push(context,  NotificationsPage(school: school,id: id,));
+          push(
+              context,
+              NotificationsPage(
+                school: school,
+                id: id,
+              ));
         },
         child: const Icon(Icons.notifications),
       ),
