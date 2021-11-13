@@ -70,10 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     categoryCard(
                         context,
-                        0.35,
-                        0.5,
                         0.33,
-                        0.43,
+                        0.5,
+                        0.3,
+                        0.45,
                         Colors.lightBlue,
                         "EXAMS",
                         "assets/teacher.png",
@@ -88,10 +88,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     }),
                     categoryCard(
                         context,
-                        0.4,
-                        0.5,
                         0.38,
-                        0.43,
+                        0.5,
+                        0.35,
+                        0.45,
                         const Color(0xff2ca896),
                         "FEE DETAILS",
                         "assets/practice.png",
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    categoryCard(context, 0.41, 0.5, 0.38, 0.43, Colors.orange,
+                    categoryCard(context, 0.38, 0.5, 0.35, 0.45, Colors.orange,
                         "EVENTS", "assets/games.png", 0.2, 0.7, check: true,
                         function: () {
                       push(
@@ -122,10 +122,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     }),
                     categoryCard(
                         context,
-                        0.35,
-                        0.5,
                         0.33,
-                        0.43,
+                        0.5,
+                        0.3,
+                        0.45,
                         Colors.deepPurple,
                         "ATTENDANCE",
                         "assets/homework.png",
