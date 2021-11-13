@@ -7,6 +7,7 @@ import 'package:mtech_school_app/Screens/login_page.dart';
 import 'package:mtech_school_app/Screens/notification_page.dart';
 import 'package:mtech_school_app/Screens/parents_profile.dart';
 import 'package:mtech_school_app/utils/app_routes.dart';
+import 'package:mtech_school_app/utils/config.dart';
 import 'package:mtech_school_app/utils/essential_functions.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -75,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         0.5,
                         0.3,
                         0.45,
-                        Colors.lightBlue,
+                        primaryBlue,
                         "EXAMS",
                         "assets/teacher.png",
                         0.2,
@@ -93,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         0.5,
                         0.35,
                         0.45,
-                        const Color(0xff2ca896),
+                        primaryGreen,
                         "FEE DETAILS",
                         "assets/practice.png",
                         0.18,
@@ -111,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    categoryCard(context, 0.38, 0.5, 0.35, 0.45, Colors.orange,
+                    categoryCard(context, 0.38, 0.5, 0.35, 0.45, primaryOrange,
                         "EVENTS", "assets/games.png", 0.2, 0.7, check: true,
                         function: () {
                       push(
@@ -127,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         0.5,
                         0.3,
                         0.45,
-                        Colors.deepPurple,
+                        primaryPurple,
                         "ATTENDANCE",
                         "assets/homework.png",
                         0.2,

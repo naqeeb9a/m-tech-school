@@ -106,7 +106,7 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                       backgroundColor: noColor,
                                       elevation: 0.0,
                                       bottom: TabBar(
-                                        labelColor: myRed,
+                                        labelColor: primaryBlue,
                                         unselectedLabelColor: myBlack,
                                         labelStyle: const TextStyle(
                                           fontWeight: FontWeight.w800,
@@ -134,7 +134,7 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                           tabPosition: TabPosition.bottom,
                                           horizontalPadding:
                                               dynamicWidth(context, .12),
-                                          color: myRed,
+                                          color: primaryBlue,
                                         ),
                                       ),
                                     ),
