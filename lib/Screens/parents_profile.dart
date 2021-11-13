@@ -25,7 +25,6 @@ class _ParentsProfileState extends State<ParentsProfile> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getPrefData();
   }
@@ -61,7 +60,7 @@ class _ParentsProfileState extends State<ParentsProfile> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   AppBar(
-                    title: Text("Profile"),
+                    title: const Text("Profile"),
                     centerTitle: true,
                     backgroundColor: noColor,
                     elevation: 0.0,
@@ -88,7 +87,7 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                     color: myBlack.withOpacity(0.2),
                                     spreadRadius: 4,
                                     blurRadius: 8,
-                                    offset: Offset(
+                                    offset: const Offset(
                                         0, 3), // changes position of shadow
                                   ),
                                 ],
@@ -174,7 +173,7 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 context, .2),
                                                       ),
                                                       child:
-                                                          LinearProgressIndicator(),
+                                                          const LinearProgressIndicator(),
                                                     );
 
                                                     // return ListView.builder(
@@ -223,7 +222,7 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 context, .2),
                                                       ),
                                                       child:
-                                                          LinearProgressIndicator(),
+                                                          const LinearProgressIndicator(),
                                                     );
 
                                                     // return ListView.builder(
@@ -272,7 +271,7 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                                 context, .2),
                                                       ),
                                                       child:
-                                                          LinearProgressIndicator(),
+                                                          const LinearProgressIndicator(),
                                                     );
 
                                                     // return ListView.builder(

@@ -65,6 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   }),
                 ),
+                SizedBox(
+                  height: dynamicHeight(context, 0.03),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -135,6 +138,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       push(context, const AttendancePage());
                     }),
                   ],
+                ),
+                SizedBox(
+                  height: dynamicHeight(context, 0.03),
                 )
               ],
             )),
