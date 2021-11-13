@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:mtech_school_app/Screens/events_page.dart';
 import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/utils/config.dart';
 import 'package:mtech_school_app/widgets/essential_functions.dart';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/utils/config.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
+import 'package:mtech_school_app/widgets/loaders.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 

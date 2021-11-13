@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mtech_school_app/Screens/events_page.dart';
 import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/utils/config.dart';
 import 'package:mtech_school_app/widgets/clip_paths.dart';
