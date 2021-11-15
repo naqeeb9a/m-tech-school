@@ -44,10 +44,11 @@ class ExamsPage extends StatelessWidget {
                               color: Colors.amber,
                               borderRadius: BorderRadius.circular(15)),
                           child: Center(
-                              child: Text(
-                            snapshot.data["data"][index]["title"],
-                            textAlign: TextAlign.center,
-                          )),
+                            child: Text(
+                              snapshot.data["data"][index]["title"],
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         );
                       },
                     );

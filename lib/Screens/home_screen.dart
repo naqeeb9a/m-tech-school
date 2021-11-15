@@ -1,4 +1,7 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mtech_school_app/Screens/attendance_page.dart';
 import 'package:mtech_school_app/Screens/events_page.dart';
 import 'package:mtech_school_app/Screens/exams_page.dart';
@@ -37,7 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
     if (saveUser.getString("loginInfo") == null) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-              builder: (BuildContext context) => const LoginPage()),
+            builder: (BuildContext context) => const LoginPage(),
+          ),
           (Route<dynamic> route) => false);
     } else {
       setState(() {
@@ -55,32 +59,50 @@ class _HomeScreenState extends State<HomeScreen> {
           ? customLoader(context)
           : SafeArea(
               child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: dynamicWidth(context, 0.03),
-                      vertical: dynamicHeight(context, 0.01)),
-                  child: header(context, () {
-                    push(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: dynamicWidth(context, 0.03),
+                        vertical: dynamicHeight(context, 0.01)),
+                    child: header(
                       context,
-                      ParentsProfile(school: school, id: id),
-                    );
-                  }),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    categoryCard(context, 0.33, 0.5, 0.3, 0.45, primaryBlue,
-                        "EXAMS", "assets/teacher.png", 0.2, 0.3, function: () {
-                      push(
+                      () {
+                        push(
                           context,
-                          ExamsPage(
+                          ParentsProfile(
                             school: school,
                             id: id,
-                          ));
-                    }),
-                    categoryCard(
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      categoryCard(
+                        context,
+                        0.33,
+                        0.5,
+                        0.3,
+                        0.45,
+                        primaryBlue,
+                        "EXAMS",
+                        "assets/teacher.png",
+                        0.2,
+                        0.3,
+                        function: () {
+                          push(
+                            context,
+                            ExamsPage(
+                              school: school,
+                              id: id,
+                            ),
+                          );
+                        },
+                      ),
+                      categoryCard(
                         context,
                         0.38,
                         0.5,
@@ -90,50 +112,77 @@ class _HomeScreenState extends State<HomeScreen> {
                         "FEE DETAILS",
                         "assets/practice.png",
                         0.18,
-                        0.5, function: () {
-                      push(
-                        context,
-                        FeeDetailPage(
-                          school: school,
-                          id: id,
-                        ),
-                      );
-                    }),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    categoryCard(context, 0.38, 0.5, 0.35, 0.45, primaryOrange,
-                        "EVENTS", "assets/games.png", 0.2, 0.7, check: true,
+                        0.5,
                         function: () {
-                      push(
-                          context,
-                          EventsPage(
-                            school: school,
-                            id: id,
-                          ));
-                    }),
-                    categoryCard(context, 0.33, 0.5, 0.3, 0.45, primaryPurple,
-                        "ATTENDANCE", "assets/homework.png", 0.2, 0.4,
-                        check: true, function: () {
-                      push(context, const AttendancePage());
-                    }),
-                  ],
-                ),
-                SizedBox(
-                  height: dynamicHeight(context, 0.05),
-                )
-              ],
-            )),
+                          push(
+                            context,
+                            FeeDetailPage(
+                              school: school,
+                              id: id,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      categoryCard(
+                        context,
+                        0.38,
+                        0.5,
+                        0.35,
+                        0.45,
+                        primaryOrange,
+                        "EVENTS",
+                        "assets/games.png",
+                        0.2,
+                        0.7,
+                        check: true,
+                        function: () {
+                          push(
+                            context,
+                            EventsPage(
+                              school: school,
+                              id: id,
+                            ),
+                          );
+                        },
+                      ),
+                      categoryCard(
+                        context,
+                        0.33,
+                        0.5,
+                        0.3,
+                        0.45,
+                        primaryPurple,
+                        "ATTENDANCE",
+                        "assets/homework.png",
+                        0.2,
+                        0.4,
+                        check: true,
+                        function: () {
+                          push(context, const AttendancePage());
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: dynamicHeight(context, 0.03),
+                  )
+                ],
+              ),
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           push(
-              context,
-              NotificationsPage(
-                school: school,
-                id: id,
-              ));
+            context,
+            NotificationsPage(
+              school: school,
+              id: id,
+            ),
+          );
         },
         child: const Icon(Icons.notifications),
       ),

@@ -166,7 +166,7 @@ eventPageCards(context, index, snapshot) {
     ),
     height: dynamicHeight(context, 0.224),
     decoration: BoxDecoration(
-      color: myWhite,
+      color: primaryLiteOrange,
       borderRadius: BorderRadius.circular(
         dynamicWidth(context, .04),
       ),
