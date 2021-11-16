@@ -4,7 +4,8 @@ import '../utils/config.dart';
 
 categoryCard(context, outerSizeH, outerSizeW, innerSizeH, innerSizeW,
     colorDynamic, text1, image, imageH, imageW,
-    {check = false, function}) {
+    {check = false, function, dValue}) {
+  Tween _scaleTween = Tween<double>(begin: 0.7, end: 1);
   return GestureDetector(
     onTap: function,
     child: Stack(
@@ -14,41 +15,51 @@ categoryCard(context, outerSizeH, outerSizeW, innerSizeH, innerSizeW,
           height: dynamicHeight(context, outerSizeH),
           width: dynamicWidth(context, outerSizeW),
         ),
-        Container(
-          height: dynamicHeight(context, innerSizeH),
-          width: dynamicWidth(context, innerSizeW),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: colorDynamic,
-            boxShadow: [
-              BoxShadow(
-                color: colorDynamic.withOpacity(0.5),
-                spreadRadius: 4,
-                blurRadius: 8,
-                offset: const Offset(0, 3), // changes position of shadow
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(dynamicWidth(context, 0.02)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: (check == false)
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.end,
-              children: [
-                SizedBox(
-                  height: dynamicHeight(context, 0.03),
-                ),
-                Text(
-                  text1,
-                  style: TextStyle(
-                      fontSize: dynamicWidth(context, 0.05), color: myWhite),
-                ),
-                SizedBox(
-                  height: dynamicHeight(context, 0.03),
+        TweenAnimationBuilder(
+          duration: Duration(milliseconds: dValue),
+          tween: _scaleTween,
+          builder: (BuildContext context, dynamic scale, Widget? child) {
+            return Transform.scale(
+              scale: scale,
+              child: child,
+            );
+          },
+          child: Container(
+            height: dynamicHeight(context, innerSizeH),
+            width: dynamicWidth(context, innerSizeW),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: colorDynamic,
+              boxShadow: [
+                BoxShadow(
+                  color: colorDynamic.withOpacity(0.5),
+                  spreadRadius: 4,
+                  blurRadius: 8,
+                  offset: const Offset(0, 3), // changes position of shadow
                 ),
               ],
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(dynamicWidth(context, 0.02)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: (check == false)
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    height: dynamicHeight(context, 0.03),
+                  ),
+                  Text(
+                    text1,
+                    style: TextStyle(
+                        fontSize: dynamicWidth(context, 0.05), color: myWhite),
+                  ),
+                  SizedBox(
+                    height: dynamicHeight(context, 0.03),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

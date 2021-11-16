@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             school: school,
                             id: id,
                           ));
-                    }),
+                    }, dValue: 200),
                     categoryCard(
                         context,
                         0.38,
@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           id: id,
                         ),
                       );
-                    }),
+                    }, dValue: 500),
                   ],
                 ),
                 Row(
@@ -112,12 +112,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             school: school,
                             id: id,
                           ));
-                    }),
+                    }, dValue: 800),
                     categoryCard(context, 0.33, 0.5, 0.3, 0.45, primaryPurple,
                         "ATTENDANCE", "assets/homework.png", 0.2, 0.4,
                         check: true, function: () {
                       push(context, const AttendancePage());
-                    }),
+                    }, dValue: 1100),
                   ],
                 ),
                 SizedBox(
