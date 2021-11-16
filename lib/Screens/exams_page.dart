@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mtech_school_app/Screens/events_page.dart';
 import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/utils/config.dart';
-import 'package:mtech_school_app/widgets/essential_functions.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
+import 'package:mtech_school_app/widgets/essential_functions.dart';
+import 'package:mtech_school_app/widgets/loaders.dart';
 
 class ExamsPage extends StatelessWidget {
   final String school;
@@ -44,10 +44,11 @@ class ExamsPage extends StatelessWidget {
                               color: Colors.amber,
                               borderRadius: BorderRadius.circular(15)),
                           child: Center(
-                              child: Text(
-                            snapshot.data["data"][index]["title"],
-                            textAlign: TextAlign.center,
-                          )),
+                            child: Text(
+                              snapshot.data["data"][index]["title"],
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         );
                       },
                     );
