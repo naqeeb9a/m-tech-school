@@ -8,7 +8,6 @@ class ApiData {
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
-
       return jsonResponse;
     } else {
       return false;
