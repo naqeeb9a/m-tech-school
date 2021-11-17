@@ -144,7 +144,7 @@ class FeeDetailPage extends StatelessWidget {
                       },
                     );
                   } else {
-                    return customLoader(context);
+                    return customLoader(context, color: myWhite);
                   }
                 },
               ),

@@ -39,6 +39,7 @@ dependencies:
   tab_indicator_styler: ^2.0.0
   flutter_html: ^2.1.5
   google_fonts: ^2.1.0
+  syncfusion_flutter_pdfviewer: ^19.3.54-beta
 
 dev_dependencies:
   flutter_test:

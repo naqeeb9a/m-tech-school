@@ -4,6 +4,7 @@ import 'package:mtech_school_app/utils/config.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
 import 'package:mtech_school_app/widgets/essential_functions.dart';
 import 'package:mtech_school_app/widgets/loaders.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class ExamsPage extends StatelessWidget {
   final String school;
@@ -14,6 +15,7 @@ class ExamsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
     return Scaffold(
       backgroundColor: myGrey,
       appBar: bar("Exams"),
@@ -36,24 +38,27 @@ class ExamsPage extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: snapshot.data["data"].length,
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: dynamicWidth(context, 0.02)),
-                          width: dynamicWidth(context, 0.3),
-                          decoration: BoxDecoration(
-                              color: Colors.amber,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Center(
-                            child: Text(
-                              snapshot.data["data"][index]["title"],
-                              textAlign: TextAlign.center,
+                        return InkWell(
+                          onTap: () async {},
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: dynamicWidth(context, 0.02)),
+                            width: dynamicWidth(context, 0.3),
+                            decoration: BoxDecoration(
+                                color: Colors.amber,
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Center(
+                              child: Text(
+                                snapshot.data["data"][index]["title"],
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
                         );
                       },
                     );
                   } else {
-                    return customLoader(context);
+                    return customLoader(context, color: myBlack);
                   }
                 },
               ),
@@ -62,11 +67,13 @@ class ExamsPage extends StatelessWidget {
               height: dynamicHeight(context, 0.05),
             ),
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.pink,
-                    borderRadius: BorderRadius.circular(20)),
-                margin: EdgeInsets.all(dynamicWidth(context, 0.02)),
+              child: ClipRRect(
+                borderRadius:
+                    BorderRadius.circular(dynamicWidth(context, 0.04)),
+                child: SfPdfViewer.network(
+                  'https://portal.isl.school/parent/exams/export-student-report-card.php?School=5&Session=1&Class=17&Exam=15&Student=709&Status=A&PStatus=A',
+                  key: _pdfViewerKey,
+                ),
               ),
             )
           ],

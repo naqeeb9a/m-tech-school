@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mtech_school_app/utils/config.dart';
 
-import 'dynamic_sizes.dart';
-
-customLoader(context, {color}) {
+customLoader(context, {color = myWhite}) {
   return Center(
-    child: SizedBox(
-      width: dynamicWidth(context, 0.3),
-      child: LinearProgressIndicator(
-        color: color,
-      ),
-    ),
-  );
+      child: Image.asset(
+    "assets/loader.gif",
+    color: color,
+    scale: 4,
+  ));
 }

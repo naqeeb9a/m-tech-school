@@ -44,7 +44,7 @@ class NotificationsPage extends StatelessWidget {
                         },
                       );
                     } else {
-                      return customLoader(context);
+                      return customLoader(context, color: primaryBlue);
                     }
                   },
                 ),
