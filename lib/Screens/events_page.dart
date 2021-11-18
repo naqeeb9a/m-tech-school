@@ -54,11 +54,15 @@ class EventsPage extends StatelessWidget {
               future: ApiData().getStudentDetails("events", school, id),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  return ListView.builder(
-                      itemCount: snapshot.data["data"].length,
-                      itemBuilder: (context, index) {
-                        return eventPageCards(context, index, snapshot);
-                      });
+                  if (snapshot.data == false) {
+                    return const Text("Server Error");
+                  } else {
+                    return ListView.builder(
+                        itemCount: snapshot.data["data"].length,
+                        itemBuilder: (context, index) {
+                          return eventPageCards(context, index, snapshot);
+                        });
+                  }
                 } else {
                   return customLoader(context, color: myBlack);
                 }

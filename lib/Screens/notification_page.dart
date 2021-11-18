@@ -36,13 +36,17 @@ class NotificationsPage extends StatelessWidget {
                       ApiData().getStudentDetails("notifications", school, id),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
-                      return ListView.builder(
-                        itemCount: snapshot.data["data"].length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return notificationsCard(
-                              context, index, snapshot.data["data"]);
-                        },
-                      );
+                      if (snapshot.data == false) {
+                        return const Text("Server Error");
+                      } else {
+                        return ListView.builder(
+                          itemCount: snapshot.data["data"].length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return notificationsCard(
+                                context, index, snapshot.data["data"]);
+                          },
+                        );
+                      }
                     } else {
                       return customLoader(context, color: primaryBlue);
                     }

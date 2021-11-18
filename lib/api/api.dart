@@ -3,8 +3,20 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 
 class ApiData {
-  getStudentDetails(dynamic query, school, id) async {
-    var url = Uri.https('mschool.cmcmtech.com', '$query/$school/$id');
+  getStudentDetails(query, school, studentId) async {
+    var url = Uri.https('mschool.cmcmtech.com', '$query/$school/$studentId');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      return jsonResponse;
+    } else {
+      return false;
+    }
+  }
+
+  getStudentExamDetails(query, school, examId, studentId) async {
+    var url =
+        Uri.https("mschool.cmcmtech.com", '$query/$school/$examId/$studentId');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
