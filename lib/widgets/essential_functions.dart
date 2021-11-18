@@ -164,7 +164,8 @@ bar(text, {check = false}) {
     ),
     centerTitle: true,
     iconTheme: IconThemeData(color: (check == true) ? myWhite : myBlack),
-    backgroundColor: (check == true) ? primaryBlue : Colors.transparent,
+    backgroundColor:
+        (check == true) ? const Color(0xFFc7445c) : Colors.transparent,
     elevation: 0,
   );
 }

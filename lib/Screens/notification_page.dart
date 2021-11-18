@@ -26,7 +26,7 @@ class NotificationsPage extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(50),
                     bottomRight: Radius.circular(50)),
-                color: primaryBlue),
+                color: Color(0xFFc7445c)),
           ),
           Column(
             children: [
@@ -48,7 +48,8 @@ class NotificationsPage extends StatelessWidget {
                         );
                       }
                     } else {
-                      return customLoader(context, color: primaryBlue);
+                      return customLoader(context,
+                          color: const Color(0xFFc7445c));
                     }
                   },
                 ),
