@@ -160,12 +160,15 @@ bar(text, {check = false}) {
   return AppBar(
     title: Text(
       text,
-      style: TextStyle(color: (check == true) ? myWhite : myBlack),
+      style: TextStyle(
+        color: check == true ? myWhite : myBlack,
+        fontWeight: FontWeight.w600,
+      ),
     ),
     centerTitle: true,
     iconTheme: IconThemeData(color: (check == true) ? myWhite : myBlack),
     backgroundColor:
-        (check == true) ? const Color(0xFFc7445c) : Colors.transparent,
+        check == true ? const Color(0xFFc7445c) : Colors.transparent,
     elevation: 0,
   );
 }

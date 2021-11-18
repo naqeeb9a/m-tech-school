@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/utils/config.dart';
-import 'package:mtech_school_app/widgets/essential_functions.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
+import 'package:mtech_school_app/widgets/essential_functions.dart';
 import 'package:mtech_school_app/widgets/loaders.dart';
 
 class NotificationsPage extends StatelessWidget {
@@ -22,11 +22,17 @@ class NotificationsPage extends StatelessWidget {
         children: [
           Container(
             height: dynamicHeight(context, 0.4),
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(50),
-                    bottomRight: Radius.circular(50)),
-                color: Color(0xFFc7445c)),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(
+                  dynamicWidth(context, .12),
+                ),
+                bottomRight: Radius.circular(
+                  dynamicWidth(context, .12),
+                ),
+              ),
+              color: primaryPink,
+            ),
           ),
           Column(
             children: [
@@ -36,8 +42,17 @@ class NotificationsPage extends StatelessWidget {
                       ApiData().getStudentDetails("notifications", school, id),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.data == false) {
-                        return const Text("Server Error");
+                      if (snapshot.data == false || snapshot.data == null) {
+                        return Center(
+                          child: Text(
+                            "Server Error",
+                            style: TextStyle(
+                              color: myBlack,
+                              fontSize: dynamicWidth(context, .06),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        );
                       } else {
                         return ListView.builder(
                           itemCount: snapshot.data["data"].length,
@@ -48,8 +63,10 @@ class NotificationsPage extends StatelessWidget {
                         );
                       }
                     } else {
-                      return customLoader(context,
-                          color: const Color(0xFFc7445c));
+                      return customLoader(
+                        context,
+                        color: primaryPink,
+                      );
                     }
                   },
                 ),
@@ -83,9 +100,12 @@ notificationsCard(context, index, snapshot) {
                 ),
               ],
             ),
-            padding: EdgeInsets.all(dynamicWidth(context, 0.05)),
-            // margin: EdgeInsets.only(top: dynamicHeight(context, 0.03)),
-            margin: EdgeInsets.all(dynamicHeight(context, 0.03)),
+            padding: EdgeInsets.all(
+              dynamicWidth(context, 0.05),
+            ),
+            margin: EdgeInsets.all(
+              dynamicHeight(context, 0.03),
+            ),
             child: Html(data: snapshot[index]["notice"]),
           ),
           Container(
@@ -104,10 +124,11 @@ notificationsCard(context, index, snapshot) {
               radius: dynamicWidth(context, 0.11),
               backgroundColor: myWhite,
               child: CircleAvatar(
-                  radius: dynamicWidth(context, 0.1),
-                  backgroundImage: const NetworkImage(
-                    "https://1q3b4h3e3g3t30d8621ylzxr-wpengine.netdna-ssl.com/wp-content/uploads/2021/05/SAEL-Portrait-360x360.jpg",
-                  )),
+                radius: dynamicWidth(context, 0.1),
+                backgroundImage: const NetworkImage(
+                  "https://1q3b4h3e3g3t30d8621ylzxr-wpengine.netdna-ssl.com/wp-content/uploads/2021/05/SAEL-Portrait-360x360.jpg",
+                ),
+              ),
             ),
           ),
         ],

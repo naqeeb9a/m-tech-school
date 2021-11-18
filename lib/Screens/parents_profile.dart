@@ -1,4 +1,7 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/utils/config.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
@@ -20,6 +23,23 @@ class ParentsProfile extends StatefulWidget {
 class _ParentsProfileState extends State<ParentsProfile> {
   @override
   Widget build(BuildContext context) {
+    if (Platform.isAndroid) {
+      SystemChrome.setSystemUIOverlayStyle(
+        const SystemUiOverlayStyle(
+          statusBarColor: myBlack,
+          statusBarBrightness: Brightness.light,
+          systemNavigationBarColor: myBlack,
+          systemNavigationBarIconBrightness: Brightness.light,
+        ),
+      );
+    } else if (Platform.isIOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        const SystemUiOverlayStyle(
+          statusBarBrightness: Brightness.dark,
+          systemNavigationBarIconBrightness: Brightness.dark,
+        ),
+      );
+    }
     return DefaultTabController(
       length: 3,
       initialIndex: 1,

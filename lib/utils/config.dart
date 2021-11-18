@@ -12,3 +12,4 @@ const Color primaryOrange = Color(0xffffa500);
 const Color primaryLiteOrange = Color(0xffffe4b3);
 const Color primaryPurple = Color(0xff4b0082);
 const Color primaryLitePurple = Color(0xffdfb3ff);
+const Color primaryPink = Color(0xFFc7445c);

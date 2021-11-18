@@ -61,13 +61,14 @@ class ExamsPage extends StatelessWidget {
                     future: ApiData().getStudentDetails("exams", school, id),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
-                        if (snapshot.data == false) {
+                        if (snapshot.data == false || snapshot.data == null) {
                           return Center(
                             child: Text(
                               "Server Error",
                               style: TextStyle(
-                                color: myWhite,
-                                fontSize: dynamicWidth(context, .04),
+                                color: myBlack,
+                                fontSize: dynamicWidth(context, .06),
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           );
