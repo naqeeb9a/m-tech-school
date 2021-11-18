@@ -192,17 +192,37 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                   widget.id,
                                                 ),
                                                 builder: (context, snapshot) {
-                                                  if (snapshot.hasData) {
-                                                    return tabViewCustomCards(
-                                                      context,
-                                                      snapshot.data,
-                                                      "father",
-                                                    );
+                                                  if (snapshot
+                                                          .connectionState ==
+                                                      ConnectionState.done) {
+                                                    if (snapshot.data ==
+                                                            false ||
+                                                        snapshot.data == null) {
+                                                      return Center(
+                                                        child: Text(
+                                                          "Server Error",
+                                                          style: TextStyle(
+                                                            color: myBlack,
+                                                            fontSize:
+                                                                dynamicWidth(
+                                                                    context,
+                                                                    .06),
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    } else {
+                                                      return tabViewCustomCards(
+                                                        context,
+                                                        snapshot.data,
+                                                        "father",
+                                                      );
+                                                    }
+                                                  } else {
+                                                    return customLoader(context,
+                                                        color: myWhite);
                                                   }
-                                                  return customLoader(
-                                                    context,
-                                                    color: myBlack,
-                                                  );
                                                 },
                                               ),
                                             ),
@@ -229,19 +249,34 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                   if (snapshot
                                                           .connectionState ==
                                                       ConnectionState.done) {
-                                                    if (snapshot.hasData) {
+                                                    if (snapshot.data ==
+                                                            false ||
+                                                        snapshot.data == null) {
+                                                      return Center(
+                                                        child: Text(
+                                                          "Server Error",
+                                                          style: TextStyle(
+                                                            color: myBlack,
+                                                            fontSize:
+                                                                dynamicWidth(
+                                                                    context,
+                                                                    .06),
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    } else {
                                                       return Text(
                                                         (snapshot.data
                                                                 as Map)["data"]
                                                             .toString(),
                                                       );
                                                     }
+                                                  } else {
                                                     return customLoader(context,
-                                                        color: myBlack);
+                                                        color: myWhite);
                                                   }
-                                                  return const Center(
-                                                    child: Text("error"),
-                                                  );
                                                 },
                                               ),
                                             ),
@@ -265,17 +300,37 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                   widget.id,
                                                 ),
                                                 builder: (context, snapshot) {
-                                                  if (snapshot.hasData) {
-                                                    return tabViewCustomCards(
-                                                      context,
-                                                      snapshot.data,
-                                                      "mother",
-                                                    );
+                                                  if (snapshot
+                                                          .connectionState ==
+                                                      ConnectionState.done) {
+                                                    if (snapshot.data ==
+                                                            false ||
+                                                        snapshot.data == null) {
+                                                      return Center(
+                                                        child: Text(
+                                                          "Server Error",
+                                                          style: TextStyle(
+                                                            color: myBlack,
+                                                            fontSize:
+                                                                dynamicWidth(
+                                                                    context,
+                                                                    .06),
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    } else {
+                                                      return tabViewCustomCards(
+                                                        context,
+                                                        snapshot.data,
+                                                        "mother",
+                                                      );
+                                                    }
+                                                  } else {
+                                                    return customLoader(context,
+                                                        color: myWhite);
                                                   }
-                                                  return customLoader(
-                                                    context,
-                                                    color: myBlack,
-                                                  );
                                                 },
                                               ),
                                             ),

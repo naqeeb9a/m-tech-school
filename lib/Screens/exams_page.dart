@@ -1,7 +1,4 @@
-import 'dart:io' show Platform;
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/utils/config.dart';
 import 'package:mtech_school_app/widgets/clip_paths.dart';
@@ -19,23 +16,6 @@ class ExamsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (Platform.isAndroid) {
-      SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(
-          statusBarColor: primaryBlue,
-          statusBarBrightness: Brightness.light,
-          systemNavigationBarColor: primaryBlue,
-          systemNavigationBarIconBrightness: Brightness.light,
-        ),
-      );
-    } else if (Platform.isIOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(
-          statusBarBrightness: Brightness.dark,
-          systemNavigationBarIconBrightness: Brightness.dark,
-        ),
-      );
-    }
     return Scaffold(
       backgroundColor: myGrey,
       appBar: bar("Exams"),

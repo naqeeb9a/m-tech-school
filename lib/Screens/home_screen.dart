@@ -52,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: myGrey,
       body: (_loading == true)
           ? customLoader(context)
           : SafeArea(
@@ -146,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color(0xFFc7445c),
+        backgroundColor: primaryPink,
         onPressed: () {
           push(
             context,
