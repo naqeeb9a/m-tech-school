@@ -156,163 +156,148 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                       children: [
                                         Container(
                                           color: myWhite,
-                                          child: SingleChildScrollView(
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                vertical:
-                                                    dynamicHeight(context, .04),
-                                                horizontal:
-                                                    dynamicWidth(context, .04),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical:
+                                                  dynamicHeight(context, .04),
+                                              horizontal:
+                                                  dynamicWidth(context, .04),
+                                            ),
+                                            child: FutureBuilder(
+                                              future:
+                                                  ApiData().getStudentDetails(
+                                                "parentsProfile",
+                                                widget.school,
+                                                widget.id,
                                               ),
-                                              child: FutureBuilder(
-                                                future:
-                                                    ApiData().getStudentDetails(
-                                                  "parentsProfile",
-                                                  widget.school,
-                                                  widget.id,
-                                                ),
-                                                builder: (context, snapshot) {
-                                                  if (snapshot
-                                                          .connectionState ==
-                                                      ConnectionState.done) {
-                                                    if (snapshot.data ==
-                                                            false ||
-                                                        snapshot.data == null) {
-                                                      return Center(
-                                                        child: Text(
-                                                          "Server Error",
-                                                          style: TextStyle(
-                                                            color: myBlack,
-                                                            fontSize:
-                                                                dynamicWidth(
-                                                                    context,
-                                                                    .06),
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
+                                              builder: (context, snapshot) {
+                                                if (snapshot.connectionState ==
+                                                    ConnectionState.done) {
+                                                  if (snapshot.data == false ||
+                                                      snapshot.data == null) {
+                                                    return Center(
+                                                      child: Text(
+                                                        "Server Error",
+                                                        style: TextStyle(
+                                                          color: myBlack,
+                                                          fontSize:
+                                                              dynamicWidth(
+                                                                  context, .06),
+                                                          fontWeight:
+                                                              FontWeight.w600,
                                                         ),
-                                                      );
-                                                    } else {
-                                                      return tabViewCustomCards(
-                                                        context,
-                                                        snapshot.data,
-                                                        "father",
-                                                      );
-                                                    }
+                                                      ),
+                                                    );
                                                   } else {
-                                                    return customLoader(context,
-                                                        color: myWhite);
+                                                    return tabViewCustomCards(
+                                                      context,
+                                                      snapshot.data,
+                                                      "father",
+                                                    );
                                                   }
-                                                },
-                                              ),
+                                                } else {
+                                                  return customLoader(context,
+                                                      color: myBlack);
+                                                }
+                                              },
                                             ),
                                           ),
                                         ),
                                         Container(
                                           color: myWhite,
-                                          child: SingleChildScrollView(
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                vertical:
-                                                    dynamicHeight(context, .04),
-                                                horizontal:
-                                                    dynamicWidth(context, .04),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical:
+                                                  dynamicHeight(context, .04),
+                                              horizontal:
+                                                  dynamicWidth(context, .04),
+                                            ),
+                                            child: FutureBuilder(
+                                              future:
+                                                  ApiData().getStudentDetails(
+                                                "profile",
+                                                widget.school,
+                                                widget.id,
                                               ),
-                                              child: FutureBuilder(
-                                                future:
-                                                    ApiData().getStudentDetails(
-                                                  "profile",
-                                                  widget.school,
-                                                  widget.id,
-                                                ),
-                                                builder: (context, snapshot) {
-                                                  if (snapshot
-                                                          .connectionState ==
-                                                      ConnectionState.done) {
-                                                    if (snapshot.data ==
-                                                            false ||
-                                                        snapshot.data == null) {
-                                                      return Center(
-                                                        child: Text(
-                                                          "Server Error",
-                                                          style: TextStyle(
-                                                            color: myBlack,
-                                                            fontSize:
-                                                                dynamicWidth(
-                                                                    context,
-                                                                    .06),
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
+                                              builder: (context, snapshot) {
+                                                if (snapshot.connectionState ==
+                                                    ConnectionState.done) {
+                                                  if (snapshot.data == false ||
+                                                      snapshot.data == null) {
+                                                    return Center(
+                                                      child: Text(
+                                                        "Server Error",
+                                                        style: TextStyle(
+                                                          color: myBlack,
+                                                          fontSize:
+                                                              dynamicWidth(
+                                                                  context, .06),
+                                                          fontWeight:
+                                                              FontWeight.w600,
                                                         ),
-                                                      );
-                                                    } else {
-                                                      return Text(
-                                                        (snapshot.data
-                                                                as Map)["data"]
-                                                            .toString(),
-                                                      );
-                                                    }
+                                                      ),
+                                                    );
                                                   } else {
-                                                    return customLoader(context,
-                                                        color: myWhite);
+                                                    return Text(
+                                                      (snapshot.data
+                                                              as Map)["data"]
+                                                          .toString(),
+                                                    );
                                                   }
-                                                },
-                                              ),
+                                                } else {
+                                                  return customLoader(context,
+                                                      color: myBlack);
+                                                }
+                                              },
                                             ),
                                           ),
                                         ),
                                         Container(
                                           color: myWhite,
-                                          child: SingleChildScrollView(
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                vertical:
-                                                    dynamicHeight(context, .04),
-                                                horizontal:
-                                                    dynamicWidth(context, .04),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical:
+                                                  dynamicHeight(context, .04),
+                                              horizontal:
+                                                  dynamicWidth(context, .04),
+                                            ),
+                                            child: FutureBuilder(
+                                              future:
+                                                  ApiData().getStudentDetails(
+                                                "parentsProfile",
+                                                widget.school,
+                                                widget.id,
                                               ),
-                                              child: FutureBuilder(
-                                                future:
-                                                    ApiData().getStudentDetails(
-                                                  "parentsProfile",
-                                                  widget.school,
-                                                  widget.id,
-                                                ),
-                                                builder: (context, snapshot) {
-                                                  if (snapshot
-                                                          .connectionState ==
-                                                      ConnectionState.done) {
-                                                    if (snapshot.data ==
-                                                            false ||
-                                                        snapshot.data == null) {
-                                                      return Center(
-                                                        child: Text(
-                                                          "Server Error",
-                                                          style: TextStyle(
-                                                            color: myBlack,
-                                                            fontSize:
-                                                                dynamicWidth(
-                                                                    context,
-                                                                    .06),
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
+                                              builder: (context, snapshot) {
+                                                if (snapshot.connectionState ==
+                                                    ConnectionState.done) {
+                                                  if (snapshot.data == false ||
+                                                      snapshot.data == null) {
+                                                    return Center(
+                                                      child: Text(
+                                                        "Server Error",
+                                                        style: TextStyle(
+                                                          color: myBlack,
+                                                          fontSize:
+                                                              dynamicWidth(
+                                                                  context, .06),
+                                                          fontWeight:
+                                                              FontWeight.w600,
                                                         ),
-                                                      );
-                                                    } else {
-                                                      return tabViewCustomCards(
-                                                        context,
-                                                        snapshot.data,
-                                                        "mother",
-                                                      );
-                                                    }
+                                                      ),
+                                                    );
                                                   } else {
-                                                    return customLoader(context,
-                                                        color: myWhite);
+                                                    return tabViewCustomCards(
+                                                      context,
+                                                      snapshot.data,
+                                                      "mother",
+                                                    );
                                                   }
-                                                },
-                                              ),
+                                                } else {
+                                                  return customLoader(context,
+                                                      color: myBlack);
+                                                }
+                                              },
                                             ),
                                           ),
                                         ),
@@ -359,29 +344,31 @@ class _ParentsProfileState extends State<ParentsProfile> {
 }
 
 tabViewCustomCards(context, snapshot, parent) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: [
-      tabViewCustomCardsColumn(context, check: true),
-      tabViewCustomCardsColumn(
-        context,
-        check: true,
-        text: ":",
-        text1: ":",
-        text2: ":",
-        text3: ":",
-        text4: ":",
-        text5: ":",
-        text6: ":",
-        text7: ":",
-        text8: ":",
-        text9: ":",
-        text10: ":",
-        text11: ":",
-        text12: ":",
-      ),
-      tabViewCustomCardsColumn(context, snapshot: snapshot, parent: parent)
-    ],
+  return SingleChildScrollView(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        tabViewCustomCardsColumn(context, check: true),
+        tabViewCustomCardsColumn(
+          context,
+          check: true,
+          text: ":",
+          text1: ":",
+          text2: ":",
+          text3: ":",
+          text4: ":",
+          text5: ":",
+          text6: ":",
+          text7: ":",
+          text8: ":",
+          text9: ":",
+          text10: ":",
+          text11: ":",
+          text12: ":",
+        ),
+        tabViewCustomCardsColumn(context, snapshot: snapshot, parent: parent)
+      ],
+    ),
   );
 }
 
