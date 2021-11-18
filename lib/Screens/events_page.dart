@@ -55,7 +55,15 @@ class EventsPage extends StatelessWidget {
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.data == false) {
-                    return const Text("Server Error");
+                    return Center(
+                      child: Text(
+                        "Server Error",
+                        style: TextStyle(
+                          color: myBlack,
+                          fontSize: dynamicWidth(context, .04),
+                        ),
+                      ),
+                    );
                   } else {
                     return ListView.builder(
                         itemCount: snapshot.data["data"].length,
