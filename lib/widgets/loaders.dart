@@ -3,9 +3,10 @@ import 'package:mtech_school_app/utils/config.dart';
 
 customLoader(context, {color = myWhite}) {
   return Center(
-      child: Image.asset(
-    "assets/loader.gif",
-    color: color,
-    scale: 4,
-  ));
+    child: Image.asset(
+      "assets/loader.gif",
+      color: color,
+      scale: 4,
+    ),
+  );
 }
