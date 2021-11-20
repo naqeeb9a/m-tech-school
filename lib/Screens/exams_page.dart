@@ -94,7 +94,7 @@ upperCards(context, snapshot, school, studentId) {
             child: Column(
               children: [
                 Text(
-                  snapshot[index]["title"],
+                  snapshot[index]["title"].toString(),
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
@@ -112,10 +112,12 @@ upperCards(context, snapshot, school, studentId) {
                           if (snapshot1.data == false) {
                             return const Text("Server Error");
                           } else {
-                            return SfPdfViewer.network(
-                              snapshot1.data["report"],
-                              key: _pdfViewerKey,
-                            );
+                            return (snapshot1.data["report"] == null)
+                                ? const Center(child: Text("no Results Yet!!"))
+                                : SfPdfViewer.network(
+                                    snapshot1.data["report"],
+                                    key: _pdfViewerKey,
+                                  );
                           }
                         } else {
                           return customLoader(context, color: myBlack);

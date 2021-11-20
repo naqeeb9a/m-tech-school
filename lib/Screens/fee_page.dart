@@ -70,7 +70,9 @@ Widget feeCards(snapshot) {
             color: myWhite,
             border: Border.all(width: 1),
             borderRadius: BorderRadius.circular(10)),
-        margin: EdgeInsets.symmetric(horizontal: dynamicWidth(context, 0.1)),
+        margin: EdgeInsets.symmetric(
+            horizontal: dynamicWidth(context, 0.1),
+            vertical: dynamicHeight(context, 0.02)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -103,7 +105,7 @@ Widget feeCards(snapshot) {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      "Challan : ",
+                      "Deduction : ",
                       textAlign: TextAlign.right,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -125,12 +127,12 @@ Widget feeCards(snapshot) {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        snapshot.data["data"][index]["challan"],
+                        snapshot.data["data"][index]["deduction"].toString(),
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        snapshot.data["data"][index]["title"],
+                        snapshot.data["data"][index]["title"].toString(),
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
                       ),
