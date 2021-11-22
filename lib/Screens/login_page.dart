@@ -90,8 +90,9 @@ class _LoginPageState extends State<LoginPage> {
                                 "school", response["school"].toString());
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        const HomeScreen()),
+                                  builder: (BuildContext context) =>
+                                      const HomeScreen(),
+                                ),
                                 (Route<dynamic> route) => false);
                           } else {
                             setState(() {

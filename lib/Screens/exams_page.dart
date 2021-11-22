@@ -80,56 +80,64 @@ upperCards(context, snapshot, school, studentId) {
       child: PageView(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        children: List.generate(snapshot.length, (int index) {
-          final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
-          return Container(
-            margin: EdgeInsets.only(
-              right: dynamicWidth(context, .04),
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(
-                dynamicWidth(context, .024),
+        children: List.generate(
+          snapshot.length,
+          (int index) {
+            final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
+            return Container(
+              margin: EdgeInsets.only(
+                right: dynamicWidth(context, .04),
               ),
-            ),
-            child: Column(
-              children: [
-                Text(
-                  snapshot[index]["title"].toString(),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                  dynamicWidth(context, .024),
                 ),
-                SizedBox(
-                  height: dynamicHeight(context, 0.05),
-                ),
-                Expanded(
-                  child: ClipRRect(
-                    borderRadius:
-                        BorderRadius.circular(dynamicWidth(context, 0.04)),
-                    child: FutureBuilder(
-                      future: ApiData().getStudentExamDetails("examsByID",
-                          school, snapshot[index]["id"], studentId),
-                      builder: (BuildContext context, AsyncSnapshot snapshot1) {
-                        if (snapshot1.connectionState == ConnectionState.done) {
-                          if (snapshot1.data == false) {
-                            return const Text("Server Error");
-                          } else {
-                            return (snapshot1.data["report"] == null)
-                                ? const Center(child: Text("no Results Yet!!"))
-                                : SfPdfViewer.network(
-                                    snapshot1.data["report"],
-                                    key: _pdfViewerKey,
-                                  );
-                          }
-                        } else {
-                          return customLoader(context, color: myBlack);
-                        }
-                      },
-                    ),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    snapshot[index]["title"].toString(),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                )
-              ],
-            ),
-          );
-        }),
+                  SizedBox(
+                    height: dynamicHeight(context, 0.05),
+                  ),
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                        dynamicWidth(context, 0.04),
+                      ),
+                      child: FutureBuilder(
+                        future: ApiData().getStudentExamDetails("examsByID",
+                            school, snapshot[index]["id"], studentId),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot1) {
+                          if (snapshot1.connectionState ==
+                              ConnectionState.done) {
+                            if (snapshot1.data == false) {
+                              return const Text("Server Error");
+                            } else {
+                              return (snapshot1.data["report"] == null)
+                                  ? const Center(
+                                      child: Text("no Results Yet!!"),
+                                    )
+                                  : SfPdfViewer.network(
+                                      snapshot1.data["report"],
+                                      key: _pdfViewerKey,
+                                    );
+                            }
+                          } else {
+                            return customLoader(context, color: myBlack);
+                          }
+                        },
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          },
+        ),
       ),
     ),
   );

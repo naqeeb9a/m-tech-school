@@ -282,3 +282,166 @@ eventPageCards(context, index, snapshot) {
     ),
   );
 }
+
+Widget feeCards(snapshot) {
+  return ListView.builder(
+    itemCount: snapshot.data["data"].length,
+    itemBuilder: (BuildContext context, int index) {
+      return Container(
+        decoration: BoxDecoration(
+          color: primaryLiteGreen,
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .04),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: myBlack.withOpacity(0.3),
+              spreadRadius: 2,
+              blurRadius: 8,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        margin: EdgeInsets.symmetric(
+          vertical: dynamicHeight(context, 0.014),
+          horizontal: dynamicWidth(context, 0.1),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: dynamicWidth(context, 1),
+              height: dynamicHeight(context, .06),
+              decoration: BoxDecoration(
+                color: myBlack,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(
+                    dynamicWidth(context, .04),
+                  ),
+                  topLeft: Radius.circular(
+                    dynamicWidth(context, .04),
+                  ),
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  "Fee Challan",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: myWhite,
+                    fontSize: dynamicWidth(context, 0.044),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: dynamicHeight(context, 0.01),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: dynamicWidth(context, .05),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Month : " +
+                        monthName(
+                          snapshot.data["data"][index]["month"].toString(),
+                        ).toString(),
+                  ),
+                  Text(
+                    "Year : " + snapshot.data["data"][index]["year"].toString(),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: dynamicHeight(context, 0.01),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: const [
+                    Text(
+                      "Amount : ",
+                      textAlign: TextAlign.right,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      "Deduction : ",
+                      textAlign: TextAlign.right,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      "Time Span : ",
+                      textAlign: TextAlign.right,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: dynamicWidth(context, 0.4),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        snapshot.data["data"][index]["amount"].toString(),
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        snapshot.data["data"][index]["deduction"].toString(),
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        snapshot.data["data"][index]["title"].toString(),
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: dynamicHeight(context, 0.01),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+dynamic monthName(month) {
+  if (month == "12") {
+    return "December";
+  } else if (month == "11") {
+    return "November";
+  } else if (month == "10") {
+    return "October";
+  } else if (month == "9") {
+    return "September";
+  } else if (month == "8") {
+    return "August";
+  } else if (month == "7") {
+    return "July";
+  } else if (month == "6") {
+    return "June";
+  } else if (month == "5") {
+    return "May";
+  } else if (month == "4") {
+    return "April";
+  } else if (month == "3") {
+    return "March";
+  } else if (month == "2") {
+    return "February";
+  } else if (month == "1") {
+    return "January";
+  }
+}

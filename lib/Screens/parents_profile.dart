@@ -160,8 +160,6 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                             padding: EdgeInsets.symmetric(
                                               vertical:
                                                   dynamicHeight(context, .04),
-                                              horizontal:
-                                                  dynamicWidth(context, .04),
                                             ),
                                             child: FutureBuilder(
                                               future:
@@ -189,6 +187,7 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                       ),
                                                     );
                                                   } else {
+                                                    print(snapshot.data);
                                                     return tabViewCustomCards(
                                                       context,
                                                       snapshot.data,
@@ -209,14 +208,12 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                             padding: EdgeInsets.symmetric(
                                               vertical:
                                                   dynamicHeight(context, .04),
-                                              horizontal:
-                                                  dynamicWidth(context, .04),
                                             ),
                                             child: FutureBuilder(
                                               future:
                                                   ApiData().getStudentDetails(
                                                 "profile",
-                                                widget.school,
+                                                "fs",
                                                 widget.id,
                                               ),
                                               builder: (context, snapshot) {
@@ -238,11 +235,14 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                       ),
                                                     );
                                                   } else {
-                                                    return Text(
+                                                    return studentTabViewCustomCards(
+                                                      context,
                                                       (snapshot.data
-                                                              as Map)["data"]
-                                                          .toString(),
+                                                              as Map)["data"],
                                                     );
+                                                    // return Text(
+                                                    //   (snapshot.data as Map)["data"]["name"].toString(),
+                                                    // );
                                                   }
                                                 } else {
                                                   return customLoader(context,
@@ -258,8 +258,6 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                             padding: EdgeInsets.symmetric(
                                               vertical:
                                                   dynamicHeight(context, .04),
-                                              horizontal:
-                                                  dynamicWidth(context, .04),
                                             ),
                                             child: FutureBuilder(
                                               future:
@@ -395,19 +393,153 @@ tabViewCustomCardsColumn(context,
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text(check == true ? text : snapshot[parent]["name"]),
-        Text(check == true ? text1 : snapshot[parent]["cnic_no"]),
-        Text(check == true ? text2 : snapshot[parent]["ntn"]),
-        Text(check == true ? text3 : snapshot[parent]["marital_status"]),
-        Text(check == true ? text4 : snapshot[parent]["email"]),
-        Text(check == true ? text5 : snapshot[parent]["qualification"]),
-        Text(check == true ? text6 : snapshot[parent]["company"]),
-        Text(check == true ? text7 : snapshot[parent]["department"]),
-        Text(check == true ? text8 : snapshot[parent]["designation"]),
-        Text(check == true ? text9 : snapshot[parent]["address"]),
-        Text(check == true ? text10 : snapshot[parent]["postal_code"]),
-        Text(check == true ? text11 : snapshot[parent]["phone"]),
-        Text(check == true ? text12 : snapshot[parent]["mobile"]),
+        Text(
+          check == true ? text : snapshot[parent]["name"],
+        ),
+        Text(
+          check == true ? text1 : snapshot[parent]["cnic_no"],
+        ),
+        Text(
+          check == true ? text2 : snapshot[parent]["ntn"],
+        ),
+        Text(
+          check == true ? text3 : snapshot[parent]["marital_status"],
+        ),
+        Text(
+          check == true ? text4 : snapshot[parent]["qualification"],
+        ),
+        Text(
+          check == true ? text5 : snapshot[parent]["company"],
+        ),
+        Flexible(
+          child: Text(
+            check == true ? text6 : snapshot[parent]["department"],
+          ),
+        ),
+        Text(
+          check == true ? text7 : snapshot[parent]["designation"],
+        ),
+        Flexible(
+          child: Text(
+            check == true ? text8 : snapshot[parent]["address"],
+          ),
+        ),
+        Text(
+          check == true ? text9 : snapshot[parent]["postal_code"],
+        ),
+        Text(
+          check == true ? text10 : snapshot[parent]["phone"],
+        ),
+        Text(
+          check == true ? text11 : snapshot[parent]["mobile"],
+        ),
+        Text(
+          check == true ? text12 : snapshot[parent]["email"],
+        ),
+      ],
+    ),
+  );
+}
+
+
+
+
+studentTabViewCustomCards(context, snapshot) {
+  print("data\n\n\n");
+  print(snapshot["name"].toString());
+  return SingleChildScrollView(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        tabViewCustomCardsColumn(context, check: true),
+        tabViewCustomCardsColumn(
+          context,
+          check: true,
+          text: ":",
+          text1: ":",
+          text2: ":",
+          text3: ":",
+          text4: ":",
+          text5: ":",
+          text6: ":",
+          text7: ":",
+          text8: ":",
+          text9: ":",
+          text10: ":",
+          text11: ":",
+          text12: ":",
+        ),
+        tabViewCustomCardsColumn(context, snapshot: snapshot)
+      ],
+    ),
+  );
+}
+
+studentTabViewCustomCardsColumn(context,
+    {snapshot = "",
+    text = "Name",
+    text1 = "CNIC",
+    text2 = "NTN",
+    text3 = "Marital Status",
+    text4 = "Qualification",
+    text5 = "Company",
+    text6 = "Department",
+    text7 = "Designation",
+    text8 = "Address",
+    text9 = "Postal Code",
+    text10 = "Phone",
+    text11 = "Mobile",
+    text12 = "Email",
+    check = true}) {
+  return SizedBox(
+    height: dynamicHeight(context, 0.4),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text(
+          check == true ? text : snapshot["name"].toString(),
+        ),
+        // Text(
+        //   check == true ? text1 : snapshot[parent]["cnic_no"],
+        // ),
+        // Text(
+        //   check == true ? text2 : snapshot[parent]["ntn"],
+        // ),
+        // Text(
+        //   check == true ? text3 : snapshot[parent]["marital_status"],
+        // ),
+        // Text(
+        //   check == true ? text4 : snapshot[parent]["qualification"],
+        // ),
+        // Text(
+        //   check == true ? text5 : snapshot[parent]["company"],
+        // ),
+        // Flexible(
+        //   child: Text(
+        //     check == true ? text6 : snapshot[parent]["department"],
+        //   ),
+        // ),
+        // Text(
+        //   check == true ? text7 : snapshot[parent]["designation"],
+        // ),
+        // Flexible(
+        //   child: Text(
+        //     check == true ? text8 : snapshot[parent]["address"],
+        //   ),
+        // ),
+        // Text(
+        //   check == true ? text9 : snapshot[parent]["postal_code"],
+        // ),
+        // Text(
+        //   check == true ? text10 : snapshot[parent]["phone"],
+        // ),
+        // Text(
+        //   check == true ? text11 : snapshot[parent]["mobile"],
+        // ),
+        // Text(
+        //   check == true ? text12 : snapshot[parent]["email"],
+        // ),
       ],
     ),
   );

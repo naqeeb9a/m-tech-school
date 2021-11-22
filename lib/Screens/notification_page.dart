@@ -56,9 +56,18 @@ class NotificationsPage extends StatelessWidget {
                       } else {
                         return ListView.builder(
                           itemCount: snapshot.data["data"].length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return notificationsCard(
-                                context, index, snapshot.data["data"]);
+                          itemBuilder: (context, index) {
+                            if (snapshot.data["data"][index]["notice"]
+                                    .toString() !=
+                                "") {
+                              return notificationsCard(
+                                context,
+                                snapshot.data["data"][index]["notice"]
+                                    .toString(),
+                              );
+                            } else {
+                              return const SizedBox();
+                            }
                           },
                         );
                       }
@@ -79,7 +88,7 @@ class NotificationsPage extends StatelessWidget {
   }
 }
 
-notificationsCard(context, index, snapshot) {
+notificationsCard(context, notice) {
   return Center(
     child: Padding(
       padding: const EdgeInsets.all(15),
@@ -90,10 +99,10 @@ notificationsCard(context, index, snapshot) {
             width: dynamicWidth(context, 0.85),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: myWhite,
+              color: primaryLitePink,
               boxShadow: [
                 BoxShadow(
-                  color: primaryBlue.withOpacity(0.3),
+                  color: myBlack.withOpacity(0.2),
                   spreadRadius: 4,
                   blurRadius: 8,
                   offset: const Offset(0, 3), // changes position of shadow
@@ -106,15 +115,17 @@ notificationsCard(context, index, snapshot) {
             margin: EdgeInsets.all(
               dynamicHeight(context, 0.03),
             ),
-            child: Html(data: snapshot[index]["notice"]),
+            child: Html(
+              data: notice.toString(),
+            ),
           ),
           Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: primaryBlue.withOpacity(0.3),
-                  spreadRadius: 4,
+                  color: myBlack.withOpacity(0.2),
+                  spreadRadius: 2,
                   blurRadius: 8,
                   offset: const Offset(0, 3), // changes position of shadow
                 ),
@@ -122,7 +133,7 @@ notificationsCard(context, index, snapshot) {
             ),
             child: CircleAvatar(
               radius: dynamicWidth(context, 0.11),
-              backgroundColor: myWhite,
+              backgroundColor: primaryLitePink,
               child: CircleAvatar(
                 radius: dynamicWidth(context, 0.1),
                 backgroundImage: const NetworkImage(
