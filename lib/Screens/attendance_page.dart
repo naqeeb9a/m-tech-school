@@ -150,7 +150,7 @@ class AttendancePage extends StatelessWidget {
                   width: dynamicWidth(context, .9),
                   height: dynamicHeight(context, .48),
                   decoration: BoxDecoration(
-                    color: myWhite,
+                    color: primaryLitePurple,
                     borderRadius: BorderRadius.circular(
                       dynamicWidth(context, .04),
                     ),
