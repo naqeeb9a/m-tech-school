@@ -43,7 +43,7 @@ class AttendancePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget _presentIcon(String day) => CircleAvatar(
-          backgroundColor: primaryGreen,
+          backgroundColor: primaryLiteGreen,
           child: Text(
             day,
             style: const TextStyle(
@@ -53,7 +53,7 @@ class AttendancePage extends StatelessWidget {
         );
 
     Widget _absentIcon(String day) => CircleAvatar(
-          backgroundColor: primaryPink,
+          backgroundColor: primaryLitePink,
           child: Text(
             day,
             style: const TextStyle(
@@ -117,7 +117,7 @@ class AttendancePage extends StatelessWidget {
         fontSize: dynamicWidth(context, .05),
         fontWeight: FontWeight.bold,
       ),
-      firstDayOfWeek: 5,
+      firstDayOfWeek: 1,
       todayButtonColor: myBlack,
       markedDatesMap: _markedDateMap,
       markedDateShowIcon: true,
@@ -150,10 +150,18 @@ class AttendancePage extends StatelessWidget {
                   width: dynamicWidth(context, .9),
                   height: dynamicHeight(context, .48),
                   decoration: BoxDecoration(
-                    color: primaryLitePurple,
+                    color: myWhite,
                     borderRadius: BorderRadius.circular(
                       dynamicWidth(context, .04),
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: myBlack.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 8,
+                        offset: const Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
                   ),
                   child: Center(
                     child: _calendarCarouselNoHeader,

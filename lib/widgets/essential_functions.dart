@@ -112,36 +112,36 @@ header(context, function) {
 
 functionalButtons(context, text, icon, color1, color2, {function}) {
   return ElevatedButton(
-      onPressed: function,
-      style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.zero,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
-      child: Ink(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [color1, color2]),
-              borderRadius: BorderRadius.circular(5)),
-          child: Container(
-            width: dynamicWidth(context, 1),
-            height: dynamicHeight(context, 0.07),
-            alignment: Alignment.center,
-            margin:
-                EdgeInsets.symmetric(horizontal: dynamicWidth(context, 0.05)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  text,
-                  style: TextStyle(
-                      fontSize: dynamicWidth(context, 0.04), color: myWhite),
-                ),
-                Icon(
-                  icon,
-                  color: myWhite,
-                )
-              ],
+    onPressed: function,
+    style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
+    child: Ink(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [color1, color2]),
+          borderRadius: BorderRadius.circular(5)),
+      child: Container(
+        width: dynamicWidth(context, 1),
+        height: dynamicHeight(context, 0.07),
+        alignment: Alignment.center,
+        margin: EdgeInsets.symmetric(horizontal: dynamicWidth(context, 0.05)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              text,
+              style: TextStyle(
+                  fontSize: dynamicWidth(context, 0.04), color: myWhite),
             ),
-          )));
+            Icon(
+              icon,
+              color: myWhite,
+            )
+          ],
+        ),
+      ),
+    ),
+  );
 }
 
 inputText(text, userCredentials, {password = false, function}) {
