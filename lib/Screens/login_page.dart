@@ -3,6 +3,7 @@ import 'package:mtech_school_app/Screens/home_screen.dart';
 import 'package:mtech_school_app/utils/config.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
 import 'package:mtech_school_app/widgets/essential_functions.dart';
+import 'package:mtech_school_app/widgets/loaders.dart';
 import 'package:mtech_school_app/widgets/login_logout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,12 +25,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: myGrey,
       body: (loading == true)
-          ? Center(
-              child: SizedBox(
-                width: dynamicWidth(context, 0.3),
-                child: const LinearProgressIndicator(),
-              ),
-            )
+          ? customLoader(context, color: primaryBlue)
           : SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.symmetric(
@@ -79,7 +75,15 @@ class _LoginPageState extends State<LoginPage> {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
                           var response = await loginUser(userCredentials);
-                          if (response["success"] == true) {
+                          if (response == false) {
+                            setState(() {
+                              loading = false;
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Username Password invalid')),
+                            );
+                          } else {
                             SharedPreferences saveUser =
                                 await SharedPreferences.getInstance();
                             SharedPreferences saveUserSchool =
@@ -94,14 +98,6 @@ class _LoginPageState extends State<LoginPage> {
                                       const HomeScreen(),
                                 ),
                                 (Route<dynamic> route) => false);
-                          } else {
-                            setState(() {
-                              loading = false;
-                            });
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('Username Password invalid')),
-                            );
                           }
                         }
                       }),
