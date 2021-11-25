@@ -187,7 +187,7 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                       ),
                                                     );
                                                   } else {
-                                                    print(snapshot.data);
+                                                   
                                                     return tabViewCustomCards(
                                                       context,
                                                       snapshot.data,
@@ -445,8 +445,6 @@ tabViewCustomCardsColumn(context,
 
 
 studentTabViewCustomCards(context, snapshot) {
-  print("data\n\n\n");
-  print(snapshot["name"].toString());
   return SingleChildScrollView(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

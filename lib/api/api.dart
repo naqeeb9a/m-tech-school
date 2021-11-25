@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class ApiData {
   getStudentDetails(query, school, studentId) async {
-    var url = Uri.https('mschool.cmcmtech.com', '$query/$school/$studentId');
+    var url = Uri.https('mtechschool.cmcmtech.com', '$query/$school/$studentId');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
@@ -16,7 +16,7 @@ class ApiData {
 
   getStudentExamDetails(query, school, examId, studentId) async {
     var url =
-        Uri.https("mschool.cmcmtech.com", '$query/$school/$examId/$studentId');
+        Uri.https("mtechschool.cmcmtech.com", '$query/$school/$examId/$studentId');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
