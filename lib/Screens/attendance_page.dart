@@ -53,7 +53,7 @@ class AttendancePage extends StatelessWidget {
         );
 
     Widget _absentIcon(String day) => CircleAvatar(
-          backgroundColor: primaryLitePink,
+          backgroundColor: primaryPink.withOpacity(.5),
           child: Text(
             day,
             style: const TextStyle(
