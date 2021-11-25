@@ -52,6 +52,10 @@ class ExamsPage extends StatelessWidget {
                               ),
                             ),
                           );
+                        } else if (snapshot.data["data"].length) {
+                          return const Center(
+                            child: Text("No exams Yet!!"),
+                          );
                         } else {
                           return upperCards(
                               context, snapshot.data["data"], school, id);

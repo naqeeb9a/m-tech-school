@@ -89,10 +89,14 @@ class _LoginPageState extends State<LoginPage> {
                                   await SharedPreferences.getInstance();
                               SharedPreferences saveUserSchool =
                                   await SharedPreferences.getInstance();
+                              SharedPreferences saveUserName =
+                                  await SharedPreferences.getInstance();
                               saveUser.setString(
                                   "loginInfo", response["user"]["id"].toString());
                               saveUserSchool.setString(
                                   "school", response["school"].toString());
+                              saveUserName.setString(
+                                  "userName", response["user"]["name"].toString());
                               Navigator.of(context).pushAndRemoveUntil(
                                   MaterialPageRoute(
                                     builder: (BuildContext context) =>

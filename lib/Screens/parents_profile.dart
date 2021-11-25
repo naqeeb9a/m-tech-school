@@ -3,8 +3,10 @@ import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/utils/config.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
 import 'package:mtech_school_app/widgets/loaders.dart';
+import 'package:mtech_school_app/widgets/login_logout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
+
 
 class ParentsProfile extends StatefulWidget {
   final String school;
@@ -64,7 +66,7 @@ class _ParentsProfileState extends State<ParentsProfile> {
                           SharedPreferences saveUser =
                               await SharedPreferences.getInstance();
                           saveUser.clear();
-                          // checkLoginStatus();
+                          checkLoginStatus(context,);
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(

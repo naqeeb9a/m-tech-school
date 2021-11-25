@@ -88,12 +88,12 @@ categoryCard(context, outerSizeH, outerSizeW, innerSizeH, innerSizeW,
   );
 }
 
-header(context, function) {
+header(context,userName, function) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Text(
-        "ABEEHA HAIDER",
+        userName.toString(),
         style: TextStyle(
             fontWeight: FontWeight.bold, fontSize: dynamicWidth(context, 0.05)),
       ),

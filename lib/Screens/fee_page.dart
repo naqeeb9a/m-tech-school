@@ -44,6 +44,10 @@ class FeeDetailPage extends StatelessWidget {
                           ),
                         ),
                       );
+                    } else if (snapshot.data["data"].length == 0) {
+                      return const Center(
+                        child: Text("No fee Challans Yet!"),
+                      );
                     } else {
                       return feeCards(snapshot);
                     }

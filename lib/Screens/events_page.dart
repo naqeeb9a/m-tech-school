@@ -45,6 +45,10 @@ class EventsPage extends StatelessWidget {
                         ),
                       ),
                     );
+                  } else if (snapshot.data["data"].length == 0) {
+                    return const Center(
+                      child: Text("No events yet!!"),
+                    );
                   } else {
                     return ListView.builder(
                         itemCount: snapshot.data["data"].length,

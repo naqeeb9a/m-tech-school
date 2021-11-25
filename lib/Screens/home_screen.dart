@@ -3,7 +3,6 @@ import 'package:mtech_school_app/Screens/attendance_page.dart';
 import 'package:mtech_school_app/Screens/events_page.dart';
 import 'package:mtech_school_app/Screens/exams_page.dart';
 import 'package:mtech_school_app/Screens/fee_page.dart';
-import 'package:mtech_school_app/Screens/login_page.dart';
 import 'package:mtech_school_app/Screens/notification_page.dart';
 import 'package:mtech_school_app/Screens/parents_profile.dart';
 import 'package:mtech_school_app/utils/app_routes.dart';
@@ -11,6 +10,7 @@ import 'package:mtech_school_app/utils/config.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
 import 'package:mtech_school_app/widgets/essential_functions.dart';
 import 'package:mtech_school_app/widgets/loaders.dart';
+import 'package:mtech_school_app/widgets/login_logout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,34 +19,26 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
-
 class _HomeScreenState extends State<HomeScreen> {
   String id = "";
   String school = "";
+  String userName = "";
   bool _loading = true;
 
   @override
   void initState() {
     super.initState();
-    checkLoginStatus();
-  }
-
-  checkLoginStatus() async {
-    SharedPreferences saveUser = await SharedPreferences.getInstance();
-    SharedPreferences saveUserSchool = await SharedPreferences.getInstance();
-    if (saveUser.getString("loginInfo") == null) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (BuildContext context) => const LoginPage(),
-          ),
-          (Route<dynamic> route) => false);
-    } else {
+    checkLoginStatus(context,function: () async {
+      SharedPreferences saveUser = await SharedPreferences.getInstance();
+      SharedPreferences saveUserSchool = await SharedPreferences.getInstance();
+      SharedPreferences saveUserName = await SharedPreferences.getInstance();
       setState(() {
         id = saveUser.getString("loginInfo").toString();
         school = saveUserSchool.getString("school").toString();
+        userName = saveUserName.getString("userName").toString();
         _loading = false;
       });
-    }
+    });
   }
 
   @override
@@ -65,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         vertical: dynamicHeight(context, 0.01)),
                     child: header(
                       context,
+                      userName,
                       () {
                         push(
                           context,
