@@ -7,7 +7,6 @@ import 'package:mtech_school_app/widgets/login_logout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
-
 class ParentsProfile extends StatefulWidget {
   final String school;
   final String id;
@@ -65,8 +64,16 @@ class _ParentsProfileState extends State<ParentsProfile> {
                         onTap: () async {
                           SharedPreferences saveUser =
                               await SharedPreferences.getInstance();
+                          SharedPreferences saveUserSchool =
+                              await SharedPreferences.getInstance();
+                          SharedPreferences saveUserName =
+                              await SharedPreferences.getInstance();
                           saveUser.clear();
-                          checkLoginStatus(context,);
+                          saveUserSchool.clear();
+                          saveUserName.clear();
+                          checkLoginStatus(
+                            context,
+                          );
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -189,7 +196,6 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                       ),
                                                     );
                                                   } else {
-                                                   
                                                     return tabViewCustomCards(
                                                       context,
                                                       snapshot.data,
@@ -215,7 +221,7 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                               future:
                                                   ApiData().getStudentDetails(
                                                 "profile",
-                                                "fs",
+                                                widget.school,
                                                 widget.id,
                                               ),
                                               builder: (context, snapshot) {
@@ -239,12 +245,8 @@ class _ParentsProfileState extends State<ParentsProfile> {
                                                   } else {
                                                     return studentTabViewCustomCards(
                                                       context,
-                                                      (snapshot.data
-                                                              as Map)["data"],
+                                                      snapshot.data,
                                                     );
-                                                    // return Text(
-                                                    //   (snapshot.data as Map)["data"]["name"].toString(),
-                                                    // );
                                                   }
                                                 } else {
                                                   return customLoader(context,
@@ -443,16 +445,13 @@ tabViewCustomCardsColumn(context,
   );
 }
 
-
-
-
 studentTabViewCustomCards(context, snapshot) {
   return SingleChildScrollView(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        tabViewCustomCardsColumn(context, check: true),
-        tabViewCustomCardsColumn(
+        studentTabViewCustomCardsColumn(context, check: true),
+        studentTabViewCustomCardsColumn(
           context,
           check: true,
           text: ":",
@@ -469,7 +468,8 @@ studentTabViewCustomCards(context, snapshot) {
           text11: ":",
           text12: ":",
         ),
-        tabViewCustomCardsColumn(context, snapshot: snapshot)
+        studentTabViewCustomCardsColumn(context,
+            snapshot: snapshot, parent: "data")
       ],
     ),
   );
@@ -477,20 +477,21 @@ studentTabViewCustomCards(context, snapshot) {
 
 studentTabViewCustomCardsColumn(context,
     {snapshot = "",
+    parent = "",
     text = "Name",
-    text1 = "CNIC",
-    text2 = "NTN",
-    text3 = "Marital Status",
-    text4 = "Qualification",
-    text5 = "Company",
-    text6 = "Department",
-    text7 = "Designation",
+    text1 = "Gender",
+    text2 = "DOB",
+    text3 = "Birth Place",
+    text4 = "Disability",
+    text5 = "Blood Group",
+    text6 = "Hand",
+    text7 = "Postal Code",
     text8 = "Address",
-    text9 = "Postal Code",
+    text9 = "Registration No",
     text10 = "Phone",
     text11 = "Mobile",
     text12 = "Email",
-    check = true}) {
+    check = false}) {
   return SizedBox(
     height: dynamicHeight(context, 0.4),
     child: Column(
@@ -498,48 +499,53 @@ studentTabViewCustomCardsColumn(context,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
-          check == true ? text : snapshot["name"].toString(),
+          check == true ? text : snapshot[parent]["name"].toString(),
         ),
-        // Text(
-        //   check == true ? text1 : snapshot[parent]["cnic_no"],
-        // ),
-        // Text(
-        //   check == true ? text2 : snapshot[parent]["ntn"],
-        // ),
-        // Text(
-        //   check == true ? text3 : snapshot[parent]["marital_status"],
-        // ),
-        // Text(
-        //   check == true ? text4 : snapshot[parent]["qualification"],
-        // ),
-        // Text(
-        //   check == true ? text5 : snapshot[parent]["company"],
-        // ),
-        // Flexible(
-        //   child: Text(
-        //     check == true ? text6 : snapshot[parent]["department"],
-        //   ),
-        // ),
-        // Text(
-        //   check == true ? text7 : snapshot[parent]["designation"],
-        // ),
-        // Flexible(
-        //   child: Text(
-        //     check == true ? text8 : snapshot[parent]["address"],
-        //   ),
-        // ),
-        // Text(
-        //   check == true ? text9 : snapshot[parent]["postal_code"],
-        // ),
-        // Text(
-        //   check == true ? text10 : snapshot[parent]["phone"],
-        // ),
-        // Text(
-        //   check == true ? text11 : snapshot[parent]["mobile"],
-        // ),
-        // Text(
-        //   check == true ? text12 : snapshot[parent]["email"],
-        // ),
+        Text(
+          check == true ? text1 : snapshot[parent]["gender"],
+        ),
+        Text(
+          check == true ? text2 : snapshot[parent]["dob"],
+        ),
+        Text(
+          check == true ? text3 : snapshot[parent]["birth_place"],
+        ),
+        Text(
+          check == true ? text4 : snapshot[parent]["disability"],
+        ),
+        Text(
+          check == true ? text5 : snapshot[parent]["blood_group"],
+        ),
+        Text(
+          check == true ? text6 : snapshot[parent]["hand"],
+        ),
+        Text(
+          check == true ? text7 : snapshot[parent]["postal_code"],
+        ),
+        (check == true)
+            ? Text(
+                check == true ? text8 : snapshot[parent]["address"],
+                overflow: TextOverflow.ellipsis,
+              )
+            : SizedBox(
+                width: dynamicWidth(context, 0.4),
+                child: Text(
+                  check == true ? text8 : snapshot[parent]["address"],
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+        Text(
+          check == true ? text9 : snapshot[parent]["registration_no"],
+        ),
+        Text(
+          check == true ? text10 : snapshot[parent]["phone"],
+        ),
+        Text(
+          check == true ? text11 : snapshot[parent]["mobile"],
+        ),
+        Text(
+          check == true ? text12 : snapshot[parent]["email"],
+        ),
       ],
     ),
   );
