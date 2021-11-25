@@ -19,6 +19,7 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+
 class _HomeScreenState extends State<HomeScreen> {
   String id = "";
   String school = "";
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    checkLoginStatus(context,function: () async {
+    checkLoginStatus(context, function: () async {
       SharedPreferences saveUser = await SharedPreferences.getInstance();
       SharedPreferences saveUserSchool = await SharedPreferences.getInstance();
       SharedPreferences saveUserName = await SharedPreferences.getInstance();
@@ -53,8 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: dynamicWidth(context, 0.03),
-                        vertical: dynamicHeight(context, 0.01)),
+                      horizontal: dynamicWidth(context, 0.03),
+                      vertical: dynamicHeight(context, 0.01),
+                    ),
                     child: header(
                       context,
                       userName,
@@ -73,24 +75,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       categoryCard(
-                          context,
-                          0.33,
-                          0.5,
-                          0.3,
-                          0.45,
-                          primaryBlue,
-                          "EXAMS",
-                          "assets/teacher.png",
-                          0.2,
-                          0.3, function: () {
-                        push(
-                          context,
-                          ExamsPage(
-                            school: school,
-                            id: id,
-                          ),
-                        );
-                      }, dValue: 200),
+                        context,
+                        0.33,
+                        0.5,
+                        0.3,
+                        0.45,
+                        primaryBlue,
+                        "EXAMS",
+                        "assets/teacher.png",
+                        0.2,
+                        0.3,
+                        function: () {
+                          push(
+                            context,
+                            ExamsPage(
+                              school: school,
+                              id: id,
+                            ),
+                          );
+                        },
+                        dValue: 200,
+                      ),
                       categoryCard(
                           context,
                           0.38,
@@ -115,22 +120,49 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      categoryCard(context, 0.38, 0.5, 0.35, 0.45,
-                          primaryOrange, "EVENTS", "assets/games.png", 0.2, 0.7,
-                          check: true, function: () {
-                        push(
-                          context,
-                          EventsPage(
-                            school: school,
-                            id: id,
-                          ),
-                        );
-                      }, dValue: 800),
-                      categoryCard(context, 0.33, 0.5, 0.3, 0.45, primaryPurple,
-                          "ATTENDANCE", "assets/homework.png", 0.2, 0.4,
-                          check: true, function: () {
-                        push(context, const AttendancePage());
-                      }, dValue: 1100),
+                      categoryCard(
+                        context,
+                        0.38,
+                        0.5,
+                        0.35,
+                        0.45,
+                        primaryOrange,
+                        "EVENTS",
+                        "assets/games.png",
+                        0.2,
+                        0.7,
+                        check: true,
+                        function: () {
+                          push(
+                            context,
+                            EventsPage(
+                              school: school,
+                              id: id,
+                            ),
+                          );
+                        },
+                        dValue: 800,
+                      ),
+                      categoryCard(
+                        context,
+                        0.33,
+                        0.5,
+                        0.3,
+                        0.45,
+                        primaryPurple,
+                        "ATTENDANCE",
+                        "assets/homework.png",
+                        0.2,
+                        0.4,
+                        check: true,
+                        function: () {
+                          push(
+                            context,
+                            const AttendancePage(),
+                          );
+                        },
+                        dValue: 1100,
+                      ),
                     ],
                   ),
                   SizedBox(
