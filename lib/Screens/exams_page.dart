@@ -82,7 +82,7 @@ class _ExamsPageState extends State<ExamsPage> {
 }
 
 upperCards(context, snapshot, school, studentId) {
-  final _pageController = PageController(viewportFraction: 0.8);
+  final _pageController = PageController(viewportFraction: 0.9, keepPage: true);
   return Center(
     child: Container(
       margin: EdgeInsets.only(
@@ -106,6 +106,7 @@ upperCards(context, snapshot, school, studentId) {
                 ),
               ),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
                     snapshot[index]["title"].toString(),
@@ -114,7 +115,8 @@ upperCards(context, snapshot, school, studentId) {
                   SizedBox(
                     height: dynamicHeight(context, 0.05),
                   ),
-                  Expanded(
+                  SizedBox(
+                    height: dynamicHeight(context, 0.6),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(
                         dynamicWidth(context, 0.04),

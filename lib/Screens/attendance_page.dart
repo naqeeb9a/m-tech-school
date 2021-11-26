@@ -201,7 +201,7 @@ class _AttendancePageState extends State<AttendancePage> {
                                   );
                                 }
                               } else {
-                                return customLoader(context);
+                                return customLoader(context, color: myWhite);
                               }
                             }),
                       )
