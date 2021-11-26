@@ -7,13 +7,18 @@ import 'package:mtech_school_app/widgets/essential_functions.dart';
 import 'package:mtech_school_app/widgets/loaders.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
-class ExamsPage extends StatelessWidget {
+class ExamsPage extends StatefulWidget {
   final String school;
   final String id;
 
   const ExamsPage({Key? key, required this.school, required this.id})
       : super(key: key);
 
+  @override
+  State<ExamsPage> createState() => _ExamsPageState();
+}
+
+class _ExamsPageState extends State<ExamsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +43,8 @@ class ExamsPage extends StatelessWidget {
                 ),
                 Expanded(
                   child: FutureBuilder(
-                    future: ApiData().getStudentDetails("exams", school, id),
+                    future: ApiData()
+                        .getStudentDetails("exams", widget.school, widget.id),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.data == false || snapshot.data == null) {
@@ -52,13 +58,13 @@ class ExamsPage extends StatelessWidget {
                               ),
                             ),
                           );
-                        } else if (snapshot.data["data"].length==0) {
+                        } else if (snapshot.data["data"].length == 0) {
                           return const Center(
                             child: Text("No exams Yet!!"),
                           );
                         } else {
-                          return upperCards(
-                              context, snapshot.data["data"], school, id);
+                          return upperCards(context, snapshot.data["data"],
+                              widget.school, widget.id);
                         }
                       } else {
                         return customLoader(context, color: myWhite);
@@ -120,10 +126,12 @@ upperCards(context, snapshot, school, studentId) {
                             (BuildContext context, AsyncSnapshot snapshot1) {
                           if (snapshot1.connectionState ==
                               ConnectionState.done) {
-                            if (snapshot1.data == false) {
+                            if (snapshot1.data == false ||
+                                snapshot1.data == null) {
                               return const Text("Server Error");
                             } else {
-                              return (snapshot1.data["report"] == null)
+                              return (snapshot1.data["report"] == null ||
+                                      snapshot1.data == "")
                                   ? const Center(
                                       child: Text("no Results Yet!!"),
                                     )

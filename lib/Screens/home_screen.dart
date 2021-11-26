@@ -82,9 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         0.45,
                         primaryBlue,
                         "EXAMS",
-                        "assets/teacher.png",
-                        0.2,
-                        0.3,
+                        "assets/placeholder2.png",
+                        0.15,
+                        0.35,
                         function: () {
                           push(
                             context,
@@ -104,8 +104,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           0.45,
                           primaryGreen,
                           "FEE DETAILS",
-                          "assets/practice.png",
-                          0.18,
+                          "assets/placeholder3.png",
+                          0.15,
                           0.5, function: () {
                         push(
                           context,
@@ -128,9 +128,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         0.45,
                         primaryOrange,
                         "EVENTS",
-                        "assets/games.png",
-                        0.2,
-                        0.7,
+                        "assets/placeholder.png",
+                        0.17,
+                        0.65,
                         check: true,
                         function: () {
                           push(
@@ -151,14 +151,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         0.45,
                         primaryPurple,
                         "ATTENDANCE",
-                        "assets/homework.png",
+                        "assets/placeholder1.png",
                         0.2,
-                        0.4,
+                        0.3,
                         check: true,
                         function: () {
                           push(
                             context,
-                            const AttendancePage(),
+                            AttendancePage(school: school,id: id,),
                           );
                         },
                         dValue: 1100,
@@ -171,19 +171,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: primaryPink,
-        onPressed: () {
-          push(
-            context,
-            NotificationsPage(
-              school: school,
-              id: id,
+      floatingActionButton: (_loading == true)
+          ? null
+          : FloatingActionButton(
+              backgroundColor: primaryPink,
+              onPressed: () {
+                push(
+                  context,
+                  NotificationsPage(
+                    school: school,
+                    id: id,
+                  ),
+                );
+              },
+              child: const Icon(Icons.notifications),
             ),
-          );
-        },
-        child: const Icon(Icons.notifications),
-      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }

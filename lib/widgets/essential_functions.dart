@@ -88,14 +88,19 @@ categoryCard(context, outerSizeH, outerSizeW, innerSizeH, innerSizeW,
   );
 }
 
-header(context,userName, function) {
+header(context, userName, function) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Text(
-        userName.toString(),
-        style: TextStyle(
-            fontWeight: FontWeight.bold, fontSize: dynamicWidth(context, 0.05)),
+      SizedBox(
+        width: dynamicWidth(context, 0.5),
+        child: Text(
+          userName.toString(),
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              overflow: TextOverflow.ellipsis,
+              fontSize: dynamicWidth(context, 0.05)),
+        ),
       ),
       GestureDetector(
         onTap: function,
@@ -103,7 +108,7 @@ header(context,userName, function) {
           radius: dynamicWidth(context, 0.07),
           backgroundColor: Colors.black,
           backgroundImage: const NetworkImage(
-              "https://www.whatsappprofiledpimages.com/wp-content/uploads/2021/08/Profile-Photo-Wallpaper.jpg"),
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa1vCoKM-fZKpm7MDA0g6UB1ICWPWr1vt-3BqEtBvSpm2Uud2k5K4dkHzlDwMUipTJ_FM&usqp=CAU"),
         ),
       )
     ],

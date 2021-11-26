@@ -91,7 +91,7 @@ class NotificationsPage extends StatelessWidget {
 notificationsCard(context, notice) {
   return Center(
     child: Padding(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Stack(
         alignment: Alignment.topRight,
         children: [
@@ -109,9 +109,11 @@ notificationsCard(context, notice) {
                 ),
               ],
             ),
-            padding: EdgeInsets.all(
-              dynamicWidth(context, 0.05),
-            ),
+            padding: EdgeInsets.only(
+                top: dynamicHeight(context, 0.08),
+                bottom: dynamicHeight(context, 0.05),
+                left: dynamicWidth(context, 0.05),
+                right: dynamicWidth(context, 0.05)),
             margin: EdgeInsets.all(
               dynamicHeight(context, 0.03),
             ),
@@ -136,6 +138,7 @@ notificationsCard(context, notice) {
               backgroundColor: primaryLitePink,
               child: CircleAvatar(
                 radius: dynamicWidth(context, 0.1),
+                backgroundColor: primaryLitePink,
                 backgroundImage: const NetworkImage(
                   "https://1q3b4h3e3g3t30d8621ylzxr-wpengine.netdna-ssl.com/wp-content/uploads/2021/05/SAEL-Portrait-360x360.jpg",
                 ),

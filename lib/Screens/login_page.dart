@@ -22,99 +22,95 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     var userCredentials = [];
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: myGrey,
-        body: (loading == true)
-            ? customLoader(context, color: primaryBlue)
-            : SingleChildScrollView(
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: dynamicWidth(context, 0.1),
-                  ),
-                  height: dynamicHeight(context, 1),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: dynamicHeight(context, 0.4),
-                          child: Image.asset("assets/school.png"),
-                        ),
-                        SizedBox(
-                          height: dynamicHeight(context, 0.08),
-                        ),
-                        inputText("Email", userCredentials, function: (value) {
-                          if (value.isEmpty) {
-                            return "Enter a Username";
+    return Scaffold(
+      backgroundColor: myGrey,
+      body: (loading == true)
+          ? customLoader(context, color: primaryBlue)
+          : SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: dynamicWidth(context, 0.1),
+                ),
+                height: dynamicHeight(context, 1),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        height: dynamicHeight(context, 0.01),
+                      ),
+                      SizedBox(
+                        height: dynamicHeight(context, 0.4),
+                        child: Image.asset("assets/school.png"),
+                      ),
+                      inputText("Email", userCredentials, function: (value) {
+                        if (value.isEmpty) {
+                          return "Enter a Username";
+                        }
+                      }),
+                      inputText("Password", userCredentials, password: true,
+                          function: (value) {
+                        if (value.isEmpty) {
+                          return "password cannot be empty";
+                        }
+                      }),
+                      SizedBox(
+                        height: dynamicHeight(context, 0.01),
+                      ),
+                      functionalButtons(
+                          context,
+                          "Login",
+                          Icons.arrow_forward,
+                          primaryBlue,
+                          primaryBlue.withOpacity(.01), function: () async {
+                        setState(
+                          () {
+                            loading = true;
+                          },
+                        );
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+                          var response = await loginUser(userCredentials);
+                          if (response == false ||
+                              response["success"] == false) {
+                            setState(() {
+                              loading = false;
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Username Password invalid')),
+                            );
+                          } else {
+                            SharedPreferences saveUser =
+                                await SharedPreferences.getInstance();
+                            SharedPreferences saveUserSchool =
+                                await SharedPreferences.getInstance();
+                            SharedPreferences saveUserName =
+                                await SharedPreferences.getInstance();
+                            saveUser.setString(
+                                "loginInfo", response["user"]["id"].toString());
+                            saveUserSchool.setString(
+                                "school", response["school"].toString());
+                            saveUserName.setString("userName",
+                                response["user"]["name"].toString());
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      const HomeScreen(),
+                                ),
+                                (Route<dynamic> route) => false);
                           }
-                        }),
-                        SizedBox(
-                          height: dynamicHeight(context, 0.02),
-                        ),
-                        inputText("Password", userCredentials, password: true,
-                            function: (value) {
-                          if (value.isEmpty) {
-                            return "password cannot be empty";
-                          }
-                        }),
-                        SizedBox(
-                          height: dynamicHeight(context, 0.1),
-                        ),
-                        functionalButtons(
-                            context,
-                            "Login",
-                            Icons.arrow_forward,
-                            primaryBlue,
-                            primaryBlue.withOpacity(.01), function: () async {
-                          setState(
-                            () {
-                              loading = true;
-                            },
-                          );
-                          if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save();
-                            var response = await loginUser(userCredentials);
-                            if (response == false) {
-                              setState(() {
-                                loading = false;
-                              });
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Username Password invalid')),
-                              );
-                            } else {
-                              SharedPreferences saveUser =
-                                  await SharedPreferences.getInstance();
-                              SharedPreferences saveUserSchool =
-                                  await SharedPreferences.getInstance();
-                              SharedPreferences saveUserName =
-                                  await SharedPreferences.getInstance();
-                              saveUser.setString(
-                                  "loginInfo", response["user"]["id"].toString());
-                              saveUserSchool.setString(
-                                  "school", response["school"].toString());
-                              saveUserName.setString(
-                                  "userName", response["user"]["name"].toString());
-                              Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        const HomeScreen(),
-                                  ),
-                                  (Route<dynamic> route) => false);
-                            }
-                          }
-                        }),
-                        SizedBox(
-                          height: dynamicHeight(context, 0.1),
-                        ),
-                      ],
-                    ),
+                        }
+                      }),
+                      SizedBox(
+                        height: dynamicHeight(context, 0.05),
+                      ),
+                    ],
                   ),
                 ),
               ),
-      ),
+            ),
     );
   }
 }

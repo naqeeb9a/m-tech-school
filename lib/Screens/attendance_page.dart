@@ -1,104 +1,42 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
-import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
+import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/utils/config.dart';
 import 'package:mtech_school_app/widgets/clip_paths.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
 import 'package:mtech_school_app/widgets/essential_functions.dart';
+import 'package:mtech_school_app/widgets/loaders.dart';
+import 'package:intl/intl.dart';
 
-List<DateTime> presentDates = [
-  DateTime(2021, 11, 1),
-  DateTime(2021, 11, 3),
-  DateTime(2021, 11, 4),
-  DateTime(2021, 11, 5),
-  DateTime(2021, 11, 6),
-  DateTime(2021, 11, 9),
-  DateTime(2021, 11, 10),
-  DateTime(2021, 11, 11),
-  DateTime(2021, 11, 15),
-  DateTime(2021, 11, 22),
-  DateTime(2021, 11, 23),
-];
-List<DateTime> absentDates = [
-  DateTime(2021, 11, 2),
-  DateTime(2021, 11, 7),
-  DateTime(2021, 11, 8),
-  DateTime(2021, 11, 12),
-  DateTime(2021, 11, 13),
-  DateTime(2021, 11, 14),
-  DateTime(2021, 11, 16),
-  DateTime(2021, 11, 17),
-  DateTime(2021, 11, 18),
-  DateTime(2021, 11, 19),
-  DateTime(2021, 11, 20),
-];
-
-class AttendancePage extends StatelessWidget {
-  const AttendancePage({Key? key}) : super(key: key);
+class AttendancePage extends StatefulWidget {
+  final String school;
+  final String id;
+  const AttendancePage({Key? key, required this.id, required this.school})
+      : super(key: key);
 
   @override
+  State<AttendancePage> createState() => _AttendancePageState();
+}
+
+class _AttendancePageState extends State<AttendancePage> {
+  bool showCheck = false;
+  dynamic selectedDate;
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  @override
   Widget build(BuildContext context) {
-    Widget _presentIcon(String day) => CircleAvatar(
-          backgroundColor: primaryLiteGreen,
-          child: Text(
-            day,
-            style: const TextStyle(
-              color: Colors.black,
-            ),
-          ),
-        );
-
-    Widget _absentIcon(String day) => CircleAvatar(
-          backgroundColor: primaryPink.withOpacity(.5),
-          child: Text(
-            day,
-            style: const TextStyle(
-              color: Colors.black,
-            ),
-          ),
-        );
-
-    EventList<Event> _markedDateMap = EventList<Event>(
-      events: {},
-    );
-
     CalendarCarousel _calendarCarouselNoHeader;
 
-    var len = min(absentDates.length, presentDates.length);
-    double cHeight;
-
-    cHeight = MediaQuery.of(context).size.height;
-    for (int i = 0; i < len; i++) {
-      _markedDateMap.add(
-        presentDates[i],
-        Event(
-          date: presentDates[i],
-          title: 'Event 5',
-          icon: _presentIcon(
-            presentDates[i].day.toString(),
-          ),
-        ),
-      );
-    }
-
-    for (int i = 0; i < len; i++) {
-      _markedDateMap.add(
-        absentDates[i],
-        Event(
-          date: absentDates[i],
-          title: 'Event 5',
-          icon: _absentIcon(
-            absentDates[i].day.toString(),
-          ),
-        ),
-      );
-    }
+    double cHeight = MediaQuery.of(context).size.height;
 
     _calendarCarouselNoHeader = CalendarCarousel<Event>(
+      onDayPressed: (date, events) {
+        setState(() {
+          selectedDate = formatter.format(date);
+          showCheck = true;
+        });
+      },
       height: cHeight * 0.54,
       weekendTextStyle: const TextStyle(
         color: primaryPink,
@@ -119,7 +57,6 @@ class AttendancePage extends StatelessWidget {
       ),
       firstDayOfWeek: 1,
       todayButtonColor: myBlack,
-      markedDatesMap: _markedDateMap,
       markedDateShowIcon: true,
       markedDateIconMaxShown: 1,
       markedDateMoreShowTotal: null,
@@ -132,6 +69,7 @@ class AttendancePage extends StatelessWidget {
       backgroundColor: myGrey,
       appBar: bar("Attendance"),
       body: Stack(
+        alignment: Alignment.center,
         children: [
           ClipPath(
             clipper: MyClipper(true),
@@ -141,14 +79,16 @@ class AttendancePage extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-              top: dynamicHeight(context, .1),
+              top: dynamicHeight(context, .05),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
+                  padding: const EdgeInsets.all(5),
                   width: dynamicWidth(context, .9),
-                  height: dynamicHeight(context, .48),
+                  height: dynamicHeight(context, .5),
                   decoration: BoxDecoration(
                     color: primaryLitePurple,
                     borderRadius: BorderRadius.circular(
@@ -159,7 +99,8 @@ class AttendancePage extends StatelessWidget {
                         color: myBlack.withOpacity(0.3),
                         spreadRadius: 2,
                         blurRadius: 8,
-                        offset: const Offset(0, 3), // changes position of shadow
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
                       ),
                     ],
                   ),
@@ -167,6 +108,104 @@ class AttendancePage extends StatelessWidget {
                     child: _calendarCarouselNoHeader,
                   ),
                 ),
+                (showCheck == true)
+                    ? SizedBox(
+                        height: dynamicHeight(context, 0.2),
+                        child: FutureBuilder(
+                            future: ApiData().getStudentDetails(
+                                "attendance", widget.school, widget.id),
+                            builder: (context, AsyncSnapshot snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                if (snapshot.data == false ||
+                                    snapshot.data == null) {
+                                  return Center(
+                                    child: Text(
+                                      "Server Error",
+                                      style: TextStyle(
+                                        color: myBlack,
+                                        fontSize: dynamicWidth(context, .06),
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  );
+                                } else if (snapshot.data["data"].length == 0) {
+                                  return const Center(
+                                    child: Text("No attendance Yet!"),
+                                  );
+                                } else {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(20),
+                                    child: ListView.builder(
+                                        itemCount: snapshot.data["data"].length,
+                                        scrollDirection: Axis.horizontal,
+                                        shrinkWrap: true,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          if (snapshot.data["data"][index]
+                                                  ["date"] ==
+                                              selectedDate) {
+                                            return Container(
+                                              margin: const EdgeInsets.all(10),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                                color: (snapshot.data["data"]
+                                                            [index]["status"] ==
+                                                        "A")
+                                                    ? Colors.red
+                                                    : Colors.green,
+                                              ),
+                                              height:
+                                                  dynamicHeight(context, 0.1),
+                                              width: dynamicWidth(context, 0.3),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    snapshot.data["data"][index]
+                                                            ["subject_name"]
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    snapshot.data["data"][index]
+                                                            ["time"]
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    snapshot.data["data"][index]
+                                                            ["date"]
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    snapshot.data["data"][index]
+                                                            ["status"]
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          } else {
+                                            return Container();
+                                          }
+                                        }),
+                                  );
+                                }
+                              } else {
+                                return customLoader(context);
+                              }
+                            }),
+                      )
+                    : Container()
               ],
             ),
           ),

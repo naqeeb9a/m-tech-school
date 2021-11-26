@@ -398,47 +398,56 @@ tabViewCustomCardsColumn(context,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
-          check == true ? text : snapshot[parent]["name"],
+          check == true ? text : snapshot[parent]["name"].toString(),
         ),
         Text(
-          check == true ? text1 : snapshot[parent]["cnic_no"],
+          check == true ? text1 : snapshot[parent]["cnic_no"].toString(),
         ),
         Text(
-          check == true ? text2 : snapshot[parent]["ntn"],
+          check == true ? text2 : snapshot[parent]["ntn"].toString(),
         ),
         Text(
-          check == true ? text3 : snapshot[parent]["marital_status"],
+          check == true ? text3 : snapshot[parent]["marital_status"].toString(),
         ),
         Text(
-          check == true ? text4 : snapshot[parent]["qualification"],
+          check == true ? text4 : snapshot[parent]["qualification"].toString(),
         ),
         Text(
-          check == true ? text5 : snapshot[parent]["company"],
+          check == true ? text5 : snapshot[parent]["company"].toString(),
         ),
         Flexible(
           child: Text(
-            check == true ? text6 : snapshot[parent]["department"],
+            check == true ? text6 : snapshot[parent]["department"].toString(),
           ),
         ),
         Text(
-          check == true ? text7 : snapshot[parent]["designation"],
+          check == true ? text7 : snapshot[parent]["designation"].toString(),
         ),
-        Flexible(
-          child: Text(
-            check == true ? text8 : snapshot[parent]["address"],
-          ),
+        (check == true)
+            ? Text(
+                check == true ? text8 : snapshot[parent]["address"].toString(),
+                overflow: TextOverflow.ellipsis,
+              )
+            : SizedBox(
+                width: dynamicWidth(context, 0.4),
+                child: Text(
+                  check == true
+                      ? text8
+                      : snapshot[parent]["address"].toString(),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+        Text(
+          check == true ? text9 : snapshot[parent]["postal_code"].toString(),
         ),
         Text(
-          check == true ? text9 : snapshot[parent]["postal_code"],
+          check == true ? text10 : snapshot[parent]["phone"].toString(),
         ),
         Text(
-          check == true ? text10 : snapshot[parent]["phone"],
+          check == true ? text11 : snapshot[parent]["mobile"].toString(),
         ),
         Text(
-          check == true ? text11 : snapshot[parent]["mobile"],
-        ),
-        Text(
-          check == true ? text12 : snapshot[parent]["email"],
+          check == true ? text12 : snapshot[parent]["email"].toString(),
         ),
       ],
     ),
@@ -502,49 +511,53 @@ studentTabViewCustomCardsColumn(context,
           check == true ? text : snapshot[parent]["name"].toString(),
         ),
         Text(
-          check == true ? text1 : snapshot[parent]["gender"],
+          check == true ? text1 : snapshot[parent]["gender"].toString(),
         ),
         Text(
-          check == true ? text2 : snapshot[parent]["dob"],
+          check == true ? text2 : snapshot[parent]["dob"].toString(),
         ),
         Text(
-          check == true ? text3 : snapshot[parent]["birth_place"],
+          check == true ? text3 : snapshot[parent]["birth_place"].toString(),
         ),
         Text(
-          check == true ? text4 : snapshot[parent]["disability"],
+          check == true ? text4 : snapshot[parent]["disability"].toString(),
         ),
         Text(
-          check == true ? text5 : snapshot[parent]["blood_group"],
+          check == true ? text5 : snapshot[parent]["blood_group"].toString(),
         ),
         Text(
-          check == true ? text6 : snapshot[parent]["hand"],
+          check == true ? text6 : snapshot[parent]["hand"].toString(),
         ),
         Text(
-          check == true ? text7 : snapshot[parent]["postal_code"],
+          check == true ? text7 : snapshot[parent]["postal_code"].toString(),
         ),
         (check == true)
             ? Text(
-                check == true ? text8 : snapshot[parent]["address"],
+                check == true ? text8 : snapshot[parent]["address"].toString(),
                 overflow: TextOverflow.ellipsis,
               )
             : SizedBox(
                 width: dynamicWidth(context, 0.4),
                 child: Text(
-                  check == true ? text8 : snapshot[parent]["address"],
+                  check == true
+                      ? text8
+                      : snapshot[parent]["address"].toString(),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
         Text(
-          check == true ? text9 : snapshot[parent]["registration_no"],
+          check == true
+              ? text9
+              : snapshot[parent]["registration_no"].toString(),
         ),
         Text(
-          check == true ? text10 : snapshot[parent]["phone"],
+          check == true ? text10 : snapshot[parent]["phone"].toString(),
         ),
         Text(
-          check == true ? text11 : snapshot[parent]["mobile"],
+          check == true ? text11 : snapshot[parent]["mobile"].toString(),
         ),
         Text(
-          check == true ? text12 : snapshot[parent]["email"],
+          check == true ? text12 : snapshot[parent]["email"].toString(),
         ),
       ],
     ),
