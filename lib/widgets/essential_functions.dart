@@ -97,9 +97,10 @@ header(context, userName, function) {
         child: Text(
           userName.toString(),
           style: TextStyle(
-              fontWeight: FontWeight.bold,
-              overflow: TextOverflow.ellipsis,
-              fontSize: dynamicWidth(context, 0.05)),
+            fontWeight: FontWeight.bold,
+            overflow: TextOverflow.ellipsis,
+            fontSize: dynamicWidth(context, 0.05),
+          ),
         ),
       ),
       GestureDetector(
@@ -107,8 +108,11 @@ header(context, userName, function) {
         child: CircleAvatar(
           radius: dynamicWidth(context, 0.07),
           backgroundColor: Colors.black,
-          backgroundImage: const NetworkImage(
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa1vCoKM-fZKpm7MDA0g6UB1ICWPWr1vt-3BqEtBvSpm2Uud2k5K4dkHzlDwMUipTJ_FM&usqp=CAU"),
+          child: Icon(
+            Icons.person,
+            color: myWhite,
+            size: dynamicWidth(context, 0.08),
+          ),
         ),
       )
     ],
@@ -152,6 +156,7 @@ functionalButtons(context, text, icon, color1, color2, {function}) {
 inputText(text, userCredentials, {password = false, function}) {
   return TextFormField(
     autovalidateMode: AutovalidateMode.onUserInteraction,
+    textInputAction: TextInputAction.next,
     validator: function,
     obscureText: password,
     decoration: InputDecoration(labelText: text),

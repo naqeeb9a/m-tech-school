@@ -158,7 +158,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         function: () {
                           push(
                             context,
-                            AttendancePage(school: school,id: id,),
+                            AttendancePage(
+                              school: school,
+                              id: id,
+                            ),
                           );
                         },
                         dValue: 1100,
@@ -171,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-      floatingActionButton: (_loading == true)
+      floatingActionButton: _loading == true
           ? null
           : FloatingActionButton(
               backgroundColor: primaryPink,

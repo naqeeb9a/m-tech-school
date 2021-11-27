@@ -44,17 +44,25 @@ class _LoginPageState extends State<LoginPage> {
                         height: dynamicHeight(context, 0.4),
                         child: Image.asset("assets/school.png"),
                       ),
-                      inputText("Email", userCredentials, function: (value) {
-                        if (value.isEmpty) {
-                          return "Enter a Username";
-                        }
-                      }),
-                      inputText("Password", userCredentials, password: true,
-                          function: (value) {
-                        if (value.isEmpty) {
-                          return "password cannot be empty";
-                        }
-                      }),
+                      inputText(
+                        "Email",
+                        userCredentials,
+                        function: (value) {
+                          if (value.isEmpty) {
+                            return "Enter a Username";
+                          }
+                        },
+                      ),
+                      inputText(
+                        "Password",
+                        userCredentials,
+                        password: true,
+                        function: (value) {
+                          if (value.isEmpty) {
+                            return "password cannot be empty";
+                          }
+                        },
+                      ),
                       SizedBox(
                         height: dynamicHeight(context, 0.01),
                       ),
@@ -79,7 +87,8 @@ class _LoginPageState extends State<LoginPage> {
                             });
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  content: Text('Username Password invalid')),
+                                content: Text('Username or Password Invalid'),
+                              ),
                             );
                           } else {
                             SharedPreferences saveUser =
@@ -89,11 +98,17 @@ class _LoginPageState extends State<LoginPage> {
                             SharedPreferences saveUserName =
                                 await SharedPreferences.getInstance();
                             saveUser.setString(
-                                "loginInfo", response["user"]["id"].toString());
+                              "loginInfo",
+                              response["user"]["id"].toString(),
+                            );
                             saveUserSchool.setString(
-                                "school", response["school"].toString());
-                            saveUserName.setString("userName",
-                                response["user"]["name"].toString());
+                              "school",
+                              response["school"].toString(),
+                            );
+                            saveUserName.setString(
+                              "userName",
+                              response["user"]["name"].toString(),
+                            );
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
                                   builder: (BuildContext context) =>
