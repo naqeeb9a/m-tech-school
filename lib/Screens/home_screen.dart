@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtech_school_app/Screens/all_attendance.dart';
 import 'package:mtech_school_app/Screens/attendance_page.dart';
 import 'package:mtech_school_app/Screens/events_page.dart';
 import 'package:mtech_school_app/Screens/exams_page.dart';
@@ -218,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             outerSizeW: 0.5,
                             innerSizeH: 0.35,
                             innerSizeW: 0.45,
-                            colorDynamic: Colors.lime,
+                            colorDynamic: Colors.brown,
                             text1: "FEE DETAILS",
                             image: "assets/placeholder3.png",
                             imageH: 0.15,
@@ -275,10 +276,10 @@ class AttendanceInfo extends StatelessWidget {
         height: dynamicWidth(context, 0.5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: Colors.brown,
+          color: Colors.indigo.withOpacity(0.6),
           boxShadow: [
             BoxShadow(
-              color: Colors.brown.withOpacity(0.5),
+              color: Colors.indigo.withOpacity(0.5),
               spreadRadius: 4,
               blurRadius: 8,
               offset: const Offset(0, 3), // changes position of shadow
@@ -300,11 +301,11 @@ class AttendanceInfo extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Container(
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(15),
                             topRight: Radius.circular(15)),
-                        color: myBlack,
+                        color: myWhite.withOpacity(0.7),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(10),
@@ -314,12 +315,21 @@ class AttendanceInfo extends StatelessWidget {
                             Text(
                               newData["_MonthYear"],
                               style: const TextStyle(
-                                  color: myWhite, fontWeight: FontWeight.bold),
+                                  color: myBlack, fontWeight: FontWeight.bold),
                             ),
-                            const Text(
-                              "See all",
-                              style: TextStyle(
-                                  color: myWhite, fontWeight: FontWeight.bold),
+                            InkWell(
+                              onTap: () {
+                                push(
+                                    context,
+                                    TotalAttendance(
+                                        school: school, id: studentId));
+                              },
+                              child: const Text(
+                                "See all",
+                                style: TextStyle(
+                                    color: myBlack,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             )
                           ],
                         ),

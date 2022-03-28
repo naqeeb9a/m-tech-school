@@ -34,53 +34,47 @@ class NotificationsPage extends StatelessWidget {
               color: primaryPink,
             ),
           ),
-          Column(
-            children: [
-              Expanded(
-                child: FutureBuilder(
-                  future:
-                      ApiData().getStudentDetails("notifications", school, id),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.data == false || snapshot.data == null) {
-                        return Center(
-                          child: Text(
-                            "Server Error",
-                            style: TextStyle(
-                              color: myBlack,
-                              fontSize: dynamicWidth(context, .06),
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
+          FutureBuilder(
+            future: ApiData().getStudentDetails("notifications", school, id),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.data == false || snapshot.data == null) {
+                  return Center(
+                    child: Text(
+                      "Server Error",
+                      style: TextStyle(
+                        color: myBlack,
+                        fontSize: dynamicWidth(context, .06),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  );
+                } else {
+                  return ListView.builder(
+                    itemCount: snapshot.data["data"].length,
+                    itemBuilder: (context, index) {
+                      if (snapshot.data["data"][index]["notice"].toString() !=
+                          "") {
+                        return notificationsCard(
+                          context,
+                          snapshot.data["data"][index]["notice"].toString(),
+                          primaryLitePink,
+                          primaryLitePink,
+                          myBlack
                         );
                       } else {
-                        return ListView.builder(
-                          itemCount: snapshot.data["data"].length,
-                          itemBuilder: (context, index) {
-                            if (snapshot.data["data"][index]["notice"]
-                                    .toString() !=
-                                "") {
-                              return notificationsCard(
-                                context,
-                                snapshot.data["data"][index]["notice"]
-                                    .toString(),
-                              );
-                            } else {
-                              return const SizedBox();
-                            }
-                          },
-                        );
+                        return const SizedBox();
                       }
-                    } else {
-                      return customLoader(
-                        context,
-                        color: primaryPink,
-                      );
-                    }
-                  },
-                ),
-              )
-            ],
+                    },
+                  );
+                }
+              } else {
+                return customLoader(
+                  context,
+                  color: primaryPink,
+                );
+              }
+            },
           ),
         ],
       ),
@@ -88,18 +82,19 @@ class NotificationsPage extends StatelessWidget {
   }
 }
 
-notificationsCard(context, notice) {
+notificationsCard(context, notice, color, color2,color2shadow,
+    {alignemnt = Alignment.topRight}) {
   return Center(
     child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Stack(
-        alignment: Alignment.topRight,
+        alignment: alignemnt,
         children: [
           Container(
             width: dynamicWidth(context, 0.85),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: primaryLitePink,
+              color: color,
               boxShadow: [
                 BoxShadow(
                   color: myBlack.withOpacity(0.2),
@@ -126,7 +121,7 @@ notificationsCard(context, notice) {
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: myBlack.withOpacity(0.2),
+                  color: color2shadow.withOpacity(0.2),
                   spreadRadius: 2,
                   blurRadius: 8,
                   offset: const Offset(0, 3), // changes position of shadow
@@ -135,10 +130,10 @@ notificationsCard(context, notice) {
             ),
             child: CircleAvatar(
               radius: dynamicWidth(context, 0.11),
-              backgroundColor: primaryLitePink,
+              backgroundColor: color2,
               child: CircleAvatar(
                 radius: dynamicWidth(context, 0.1),
-                backgroundColor: primaryLitePink,
+                backgroundColor: color,
                 backgroundImage: const NetworkImage(
                   "https://1q3b4h3e3g3t30d8621ylzxr-wpengine.netdna-ssl.com/wp-content/uploads/2021/05/SAEL-Portrait-360x360.jpg",
                 ),
