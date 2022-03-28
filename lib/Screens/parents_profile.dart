@@ -122,7 +122,7 @@ class _ParentsProfileState extends State<ParentsProfile> {
                               child: Column(
                                 children: [
                                   SizedBox(
-                                    height: dynamicHeight(context, .1),
+                                    height: dynamicWidth(context, .3),
                                     child: AppBar(
                                       backgroundColor: noColor,
                                       elevation: 0.0,

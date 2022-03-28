@@ -14,3 +14,4 @@ const Color primaryPurple = Color(0xff662d91);
 const Color primaryLitePurple = Color(0xffdbc4ed);
 const Color primaryPink = Color(0xFFc7445c);
 const Color primaryLitePink = Color(0xFFedc4cc);
+const String schoolName = "mschool";

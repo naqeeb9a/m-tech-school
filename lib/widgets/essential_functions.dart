@@ -3,120 +3,160 @@ import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
 
 import '../utils/config.dart';
 
-categoryCard(context, outerSizeH, outerSizeW, innerSizeH, innerSizeW,
-    colorDynamic, text1, image, imageH, imageW,
-    {check = false, function, dValue}) {
-  Tween _scaleTween = Tween<double>(begin: 0.7, end: 1);
-  return GestureDetector(
-    onTap: function,
-    child: Stack(
-      alignment: Alignment.center,
-      children: [
-        SizedBox(
-          height: dynamicHeight(context, outerSizeH),
-          width: dynamicWidth(context, outerSizeW),
-        ),
-        TweenAnimationBuilder(
-          duration: Duration(milliseconds: dValue),
-          tween: _scaleTween,
-          builder: (BuildContext context, dynamic scale, Widget? child) {
-            return Transform.scale(
-              scale: scale,
-              child: child,
-            );
-          },
-          child: Container(
-            height: dynamicHeight(context, innerSizeH),
-            width: dynamicWidth(context, innerSizeW),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: colorDynamic,
-              boxShadow: [
-                BoxShadow(
-                  color: colorDynamic.withOpacity(0.5),
-                  spreadRadius: 4,
-                  blurRadius: 8,
-                  offset: const Offset(0, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(dynamicWidth(context, 0.02)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: (check == false)
-                    ? MainAxisAlignment.start
-                    : MainAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    height: dynamicHeight(context, 0.03),
-                  ),
-                  Text(
-                    text1,
-                    style: TextStyle(
-                        fontSize: dynamicWidth(context, 0.05), color: myWhite),
-                  ),
-                  SizedBox(
-                    height: dynamicHeight(context, 0.03),
+class CategoryCard extends StatelessWidget {
+  final dynamic context,
+      outerSizeH,
+      outerSizeW,
+      innerSizeH,
+      innerSizeW,
+      colorDynamic,
+      text1,
+      image,
+      imageH,
+      imageW,
+      check,
+      function,
+      dValue;
+  const CategoryCard(
+      {Key? key,
+      this.context,
+      this.outerSizeH,
+      this.outerSizeW,
+      this.innerSizeH,
+      this.innerSizeW,
+      this.colorDynamic,
+      this.text1,
+      this.image,
+      this.imageH,
+      this.imageW,
+      this.check = false,
+      this.function,
+      this.dValue})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Tween _scaleTween = Tween<double>(begin: 0.7, end: 1);
+    return GestureDetector(
+      onTap: function,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          SizedBox(
+            height: dynamicHeight(context, outerSizeH),
+            width: dynamicWidth(context, outerSizeW),
+          ),
+          TweenAnimationBuilder(
+            duration: Duration(milliseconds: dValue),
+            tween: _scaleTween,
+            builder: (BuildContext context, dynamic scale, Widget? child) {
+              return Transform.scale(
+                scale: scale,
+                child: child,
+              );
+            },
+            child: Container(
+              height: dynamicHeight(context, innerSizeH),
+              width: dynamicWidth(context, innerSizeW),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: colorDynamic,
+                boxShadow: [
+                  BoxShadow(
+                    color: colorDynamic.withOpacity(0.5),
+                    spreadRadius: 4,
+                    blurRadius: 8,
+                    offset: const Offset(0, 3), // changes position of shadow
                   ),
                 ],
               ),
+              child: Padding(
+                padding: EdgeInsets.all(dynamicWidth(context, 0.02)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: (check == false)
+                      ? MainAxisAlignment.start
+                      : MainAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      height: dynamicHeight(context, 0.03),
+                    ),
+                    Text(
+                      text1,
+                      style: TextStyle(
+                          fontSize: dynamicWidth(context, 0.05),
+                          color: myWhite,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: dynamicHeight(context, 0.03),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-        (check == false)
-            ? Positioned(
-                bottom: 0,
-                right: 0,
-                child: Image.asset(
-                  image,
-                  height: dynamicHeight(context, imageH),
-                  width: dynamicWidth(context, imageW),
-                ),
-              )
-            : Positioned(
-                top: 0,
-                left: 0,
-                child: Image.asset(
-                  image,
-                  height: dynamicHeight(context, imageH),
-                  width: dynamicWidth(context, imageW),
-                ),
-              )
-      ],
-    ),
-  );
+          (check == false)
+              ? Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Image.asset(
+                    image,
+                    height: dynamicHeight(context, imageH),
+                    width: dynamicWidth(context, imageW),
+                  ),
+                )
+              : Positioned(
+                  top: 0,
+                  left: 0,
+                  child: Image.asset(
+                    image,
+                    height: dynamicHeight(context, imageH),
+                    width: dynamicWidth(context, imageW),
+                  ),
+                )
+        ],
+      ),
+    );
+  }
 }
 
-header(context, userName, function) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      SizedBox(
-        width: dynamicWidth(context, 0.5),
-        child: Text(
-          userName.toString(),
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            overflow: TextOverflow.ellipsis,
-            fontSize: dynamicWidth(context, 0.05),
-          ),
+class Header extends StatelessWidget with PreferredSizeWidget {
+  final dynamic context, userName, function;
+  const Header({Key? key, this.context, this.userName, this.function})
+      : super(key: key);
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: noColor,
+      elevation: 0,
+      title: Text(
+        userName.toString(),
+        style: TextStyle(
+          color: myBlack,
+          fontWeight: FontWeight.bold,
+          overflow: TextOverflow.ellipsis,
+          fontSize: dynamicWidth(context, 0.05),
         ),
       ),
-      GestureDetector(
-        onTap: function,
-        child: CircleAvatar(
-          radius: dynamicWidth(context, 0.07),
-          backgroundColor: Colors.black,
-          child: Icon(
-            Icons.person,
-            color: myWhite,
-            size: dynamicWidth(context, 0.08),
+      actions: [
+        IconButton(
+          onPressed: function,
+          icon: CircleAvatar(
+            radius: dynamicWidth(context, 0.07),
+            backgroundColor: Colors.black,
+            child: Icon(
+              Icons.person,
+              color: myWhite,
+              size: dynamicWidth(context, 0.05),
+            ),
           ),
-        ),
-      )
-    ],
-  );
+        )
+      ],
+    );
+  }
 }
 
 functionalButtons(context, text, icon, color1, color2, {function}) {

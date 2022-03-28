@@ -3,16 +3,28 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mtech_school_app/Screens/login_page.dart';
+import 'package:mtech_school_app/utils/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 loginUser(userCredentials) async {
-  var response = await http.post(
-      Uri.parse("http://mtechschool.cmcmtech.com/postlogin"),
-      body: {"username": userCredentials[0], "password": userCredentials[1]});
-  if (response.statusCode == 200) {
-    var jsonData = jsonDecode(response.body);
-    return jsonData;
-  } else {
+  try {
+    var response = await http
+        .post(Uri.parse("http://$schoolName.cmcmtech.com/postlogin"), headers: {
+      "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+
+      "Access-Control-Allow-Methods": "POST, OPTIONS"
+    }, body: {
+      "username": userCredentials[0],
+      "password": userCredentials[1]
+    });
+    if (response.statusCode == 200) {
+      var jsonData = jsonDecode(response.body);
+      return jsonData;
+    } else {
+      return false;
+    }
+  } catch (e) {
+   
     return false;
   }
 }

@@ -1,6 +1,9 @@
+import 'dart:io';
+
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:mtech_school_app/Screens/home_screen.dart';
+
+import 'Screens/home_screen.dart';
 
 void main() {
   runApp(
@@ -16,12 +19,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'M-Tech School',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.kalamTextTheme(
-          Theme.of(context).textTheme,
-        ),
-        fontFamily: 'Shalimar',
+      theme: ThemeData.from(
+        colorScheme: const ColorScheme.light(),
+      ).copyWith(
+        pageTransitionsTheme: (Platform.isAndroid)
+            ? const PageTransitionsTheme(
+                builders: <TargetPlatform, PageTransitionsBuilder>{
+                  TargetPlatform.android: SharedAxisPageTransitionsBuilder(
+                      transitionType: SharedAxisTransitionType.scaled),
+                },
+              )
+            : const PageTransitionsTheme(
+                builders: <TargetPlatform, PageTransitionsBuilder>{
+                  TargetPlatform.iOS: SharedAxisPageTransitionsBuilder(
+                      transitionType: SharedAxisTransitionType.scaled),
+                },
+              ),
       ),
       home: const HomeScreen(),
     );
