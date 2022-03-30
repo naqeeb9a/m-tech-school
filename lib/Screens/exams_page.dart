@@ -137,6 +137,7 @@ upperCards(context, snapshot, school, studentId) {
                                     pdfViewerKey: _pdfViewerKey,
                                     fileName:
                                         snapshot[index]["title"].toString(),
+                                    index: index,
                                   );
                           }
                         } else {
@@ -159,11 +160,13 @@ class ViewPDF extends StatelessWidget {
   final AsyncSnapshot snapshot1;
   final Key pdfViewerKey;
   final String fileName;
+  final int index;
   const ViewPDF(
       {Key? key,
       required this.snapshot1,
       required this.pdfViewerKey,
-      required this.fileName})
+      required this.fileName,
+      required this.index})
       : super(key: key);
 
   @override
@@ -172,6 +175,7 @@ class ViewPDF extends StatelessWidget {
       floatingActionButton: FloatingDownloadButton(
         snapshot1: snapshot1,
         fileName: fileName,
+        index: index,
       ),
       body: SfPdfViewer.network(
         snapshot1.data["report"],
@@ -184,8 +188,12 @@ class ViewPDF extends StatelessWidget {
 class FloatingDownloadButton extends StatefulWidget {
   final AsyncSnapshot snapshot1;
   final String fileName;
+  final int index;
   const FloatingDownloadButton(
-      {Key? key, required this.snapshot1, required this.fileName})
+      {Key? key,
+      required this.snapshot1,
+      required this.fileName,
+      required this.index})
       : super(key: key);
 
   @override
@@ -197,6 +205,7 @@ class _FloatingDownloadButtonState extends State<FloatingDownloadButton> {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      heroTag: "hero${widget.index}",
       backgroundColor: primaryBlue,
       onPressed: () => openFile(
           url: widget.snapshot1.data["report"], fileName: widget.fileName),

@@ -18,7 +18,7 @@ class AttendanceInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         margin: const EdgeInsets.all(10),
-        height: dynamicWidth(context, 0.5),
+        height: dynamicWidth(context, 0.55),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: Colors.indigo.withOpacity(0.6),
@@ -42,72 +42,88 @@ class AttendanceInfo extends StatelessWidget {
                     newData = item;
                   }
                 }
-                return Column(
-                  mainAxisSize: MainAxisSize.max,
+                return Stack(
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                            topRight: Radius.circular(15)),
-                        color: myWhite.withOpacity(0.7),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              newData["_MonthYear"],
-                              style: const TextStyle(
-                                  color: myBlack, fontWeight: FontWeight.bold),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                push(
-                                    context,
-                                    TotalAttendance(
-                                        school: school, id: studentId));
-                              },
-                              child: const Text(
-                                "See all",
-                                style: TextStyle(
-                                    color: myBlack,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    SizedBox(
+                      height: dynamicWidth(context, 0.5),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
                         children: [
-                          percentColumn(
-                              context,
-                              "Presents",
-                              newData["_Presents"].toString() + "%",
-                              double.parse(newData["_Presents"]) / 100,
-                              7,
-                              Colors.green),
-                          percentColumn(
-                              context,
-                              "Absents",
-                              newData["_Absents"].toString() + "%",
-                              double.parse(newData["_Absents"]) / 100,
-                              7,
-                              Colors.red),
-                          percentColumn(
-                              context,
-                              "Leaves",
-                              newData["_Leaves"].toString() + "%",
-                              double.parse(newData["_Leaves"]) / 100,
-                              7,
-                              Colors.deepOrangeAccent)
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15)),
+                              color: myWhite.withOpacity(0.7),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    newData["_MonthYear"],
+                                    style: const TextStyle(
+                                        color: myBlack,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      push(
+                                          context,
+                                          TotalAttendance(
+                                              school: school, id: studentId));
+                                    },
+                                    child: const Text(
+                                      "See all",
+                                      style: TextStyle(
+                                          color: myBlack,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                percentColumn(
+                                    context,
+                                    "Presents",
+                                    newData["_Presents"].toString() + "%",
+                                    double.parse(newData["_Presents"]) / 100,
+                                    7,
+                                    Colors.green),
+                                percentColumn(
+                                    context,
+                                    "Absents",
+                                    newData["_Absents"].toString() + "%",
+                                    double.parse(newData["_Absents"]) / 100,
+                                    7,
+                                    Colors.red),
+                                percentColumn(
+                                    context,
+                                    "Leaves",
+                                    newData["_Leaves"].toString() + "%",
+                                    double.parse(newData["_Leaves"]) / 100,
+                                    7,
+                                    Colors.deepOrangeAccent)
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
+                    Positioned(
+                        bottom: -3,
+                        right: 0,
+                        child: Image.asset(
+                          "assets/attendance.png",
+                          width: dynamicWidth(context, 0.15),
+                        ))
                   ],
                 );
               } else {

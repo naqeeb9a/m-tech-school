@@ -33,29 +33,13 @@ class NoticeSlider extends StatelessWidget {
             items: ((snapshot.data["data"]) as List).map((e) {
               index = random.nextInt(5);
 
-              return Container(
-                margin: const EdgeInsets.only(top: 15, bottom: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: myBlack.withOpacity(0.5),
-                      spreadRadius: 4,
-                      blurRadius: 8,
-                      offset: const Offset(0, 3), // changes position of shadow
-                    ),
-                  ],
-                ),
-                padding: const EdgeInsets.all(15),
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  width: double.maxFinite,
-                  height: double.maxFinite,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
+              return Stack(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 15, bottom: 15),
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: colors[index],
+                      color: Colors.white,
                       boxShadow: [
                         BoxShadow(
                           color: myBlack.withOpacity(0.5),
@@ -64,49 +48,81 @@ class NoticeSlider extends StatelessWidget {
                           offset:
                               const Offset(0, 3), // changes position of shadow
                         ),
-                      ]),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(15),
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      width: double.maxFinite,
+                      height: double.maxFinite,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: colors[index],
+                          boxShadow: [
+                            BoxShadow(
+                              color: myBlack.withOpacity(0.5),
+                              spreadRadius: 4,
+                              blurRadius: 8,
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
+                            ),
+                          ]),
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            e["date"],
-                            style: const TextStyle(color: myWhite),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                        title:
-                                            Text(_parseHtmlString(e["title"])),
-                                        content: HtmlWidget(e["notice"]),
-                                      ));
-                            },
-                            child: const Text("See More",
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                e["date"],
                                 style: TextStyle(
-                                    color: myWhite,
-                                    fontWeight: FontWeight.bold)),
+                                  color: myWhite,
+                                  fontSize: dynamicWidth(context, 0.03),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                            title: Text(
+                                                _parseHtmlString(e["title"])),
+                                            content: HtmlWidget(e["notice"]),
+                                          ));
+                                },
+                                child: Text("See More",
+                                    style: TextStyle(
+                                        color: myWhite,
+                                        fontSize: dynamicWidth(context, 0.03),
+                                        fontWeight: FontWeight.bold)),
+                              )
+                            ],
+                          ),
+                          Text(
+                            _parseHtmlString(e["title"]),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: dynamicWidth(context, 0.05),
+                                color: myWhite,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "",
+                            style: TextStyle(color: colors[index]),
                           )
                         ],
                       ),
-                      Text(
-                        _parseHtmlString(e["title"]),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: dynamicWidth(context, 0.05),
-                            color: myWhite,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "",
-                        style: TextStyle(color: colors[index]),
-                      )
-                    ],
+                    ),
                   ),
-                ),
+                  Positioned(
+                      bottom: 0,
+                      left: 0,
+                      child: Image.asset(
+                        "assets/notice.png",
+                        width: dynamicWidth(context, 0.25),
+                      ))
+                ],
               );
             }).toList(),
             options: CarouselOptions(
