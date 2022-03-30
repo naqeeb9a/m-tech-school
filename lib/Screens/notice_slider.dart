@@ -36,17 +36,24 @@ class NoticeSlider extends StatelessWidget {
               return Stack(
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(top: 15, bottom: 15),
+                    margin: const EdgeInsets.only(top: 20, bottom: 20),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: Colors.white,
+                      color: myGrey,
                       boxShadow: [
                         BoxShadow(
-                          color: myBlack.withOpacity(0.5),
-                          spreadRadius: 4,
-                          blurRadius: 8,
+                          color: Colors.grey[500]!,
+
+                          spreadRadius: 1,
+                          blurRadius: 15,
                           offset:
-                              const Offset(0, 3), // changes position of shadow
+                              const Offset(4, 4), // changes position of shadow
+                        ),
+                        const BoxShadow(
+                          color: myWhite,
+                          spreadRadius: 1,
+                          blurRadius: 15,
+                          offset: Offset(-4, -4), // changes position of shadow
                         ),
                       ],
                     ),
@@ -57,17 +64,26 @@ class NoticeSlider extends StatelessWidget {
                       height: double.maxFinite,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: colors[index],
-                          boxShadow: [
-                            BoxShadow(
-                              color: myBlack.withOpacity(0.5),
-                              spreadRadius: 4,
-                              blurRadius: 8,
-                              offset: const Offset(
-                                  0, 3), // changes position of shadow
-                            ),
-                          ]),
+                        borderRadius: BorderRadius.circular(15),
+                        color: colors[index],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[500]!,
+
+                            spreadRadius: 1,
+                            blurRadius: 15,
+                            offset: const Offset(
+                                4, 4), // changes position of shadow
+                          ),
+                          const BoxShadow(
+                            color: myWhite,
+                            spreadRadius: 1,
+                            blurRadius: 15,
+                            offset:
+                                Offset(-4, -4), // changes position of shadow
+                          ),
+                        ],
+                      ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -116,7 +132,7 @@ class NoticeSlider extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                      bottom: 0,
+                      bottom: 5,
                       left: 0,
                       child: Image.asset(
                         "assets/notice.png",
