@@ -56,12 +56,11 @@ class NotificationsPage extends StatelessWidget {
                       if (snapshot.data["data"][index]["notice"].toString() !=
                           "") {
                         return notificationsCard(
-                          context,
-                          snapshot.data["data"][index]["notice"].toString(),
-                          primaryLitePink,
-                          primaryLitePink,
-                          myBlack
-                        );
+                            context,
+                            snapshot.data["data"][index]["notice"].toString(),
+                            primaryLitePink,
+                            primaryLitePink,
+                            myBlack);
                       } else {
                         return const SizedBox();
                       }
@@ -82,7 +81,7 @@ class NotificationsPage extends StatelessWidget {
   }
 }
 
-notificationsCard(context, notice, color, color2,color2shadow,
+notificationsCard(context, notice, color, color2, color2shadow,
     {alignemnt = Alignment.topRight}) {
   return Center(
     child: Padding(
@@ -135,7 +134,7 @@ notificationsCard(context, notice, color, color2,color2shadow,
                 radius: dynamicWidth(context, 0.1),
                 backgroundColor: color,
                 backgroundImage: const NetworkImage(
-                  "https://1q3b4h3e3g3t30d8621ylzxr-wpengine.netdna-ssl.com/wp-content/uploads/2021/05/SAEL-Portrait-360x360.jpg",
+                  "https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png",
                 ),
               ),
             ),

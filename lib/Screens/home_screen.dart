@@ -271,7 +271,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               },
-              child: const Icon(Icons.notifications),
+              child: const Icon(
+                Icons.notifications,
+                color: myWhite,
+              ),
             ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

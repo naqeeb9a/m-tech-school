@@ -60,9 +60,7 @@ class TimeTable extends StatelessWidget {
                             const SizedBox(
                               height: 10,
                             ),
-                            HtmlWidget(snapshot.data["data"][index]["notice"]
-                                .toString()
-                                .replaceAll(r"\", ""))
+                            HtmlWidget(snapshot.data["data"][index]["notice"])
                           ],
                         );
                       } else {
