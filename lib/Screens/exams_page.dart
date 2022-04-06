@@ -195,21 +195,6 @@ class _DownloadButtonState extends State<DownloadButton> {
                   Text("Opening...")
                 ],
               ));
-
-    // FloatingActionButton(
-
-    //   backgroundColor: primaryBlue,
-    //   onPressed: () => openFile(
-    //       url: widget.snapshot.data["report"], fileName: widget.fileName),
-    //   child: isloading == true
-    //       ? const CircularProgressIndicator(
-    //           color: myWhite,
-    //         )
-    //       : const Icon(
-    //           Icons.download,
-    //           color: myWhite,
-    //         ),
-    // );
   }
 
   Future openFile({required String url, String? fileName}) async {
