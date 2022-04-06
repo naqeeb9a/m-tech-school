@@ -73,13 +73,13 @@ class _LoginPageState extends State<LoginPage> {
                           Icons.arrow_forward,
                           primaryBlue,
                           primaryBlue.withOpacity(.01), function: () async {
-                        setState(
-                          () {
-                            loading = true;
-                          },
-                        );
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
+                          setState(
+                            () {
+                              loading = true;
+                            },
+                          );
                           var response = await loginUser(userCredentials);
                           if (response == false ||
                               response["success"] == false) {

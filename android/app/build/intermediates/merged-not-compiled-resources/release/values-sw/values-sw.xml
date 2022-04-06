@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string msgid="6743534657295236036" name="default_notification_channel_name">"Kitambua ngoma"</string>
+    <string name="exo_download_completed">Imepakuliwa</string>
+    <string name="exo_download_description">Pakua</string>
+    <string name="exo_download_downloading">Inapakua</string>
+    <string name="exo_download_failed">Imeshindwa kupakua</string>
+    <string name="exo_download_notification_channel_name">Vipakuliwa</string>
+    <string name="exo_download_paused">Imesimamisha shughuli ya kupakua</string>
+    <string name="exo_download_paused_for_network">Upakuaji unasubiri mtandao</string>
+    <string name="exo_download_paused_for_wifi">Upakuaji unasubiri Wi-Fi</string>
+    <string name="exo_download_removing">Inaondoa vipakuliwa</string>
+    <string msgid="4221330012095125431" name="pause_button_content_description">"Sitisha"</string>
+    <string msgid="6034272287948142298" name="play_button_content_description">"Cheza"</string>
+    <string msgid="17824442457643717" name="skip_to_next_item_button_content_description">"Nenda kwenye kipengee kinachofuata"</string>
+    <string msgid="7233771088610629683" name="skip_to_previous_item_button_content_description">"Rudi kwenye kipengee kilichotangulia"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+</resources>

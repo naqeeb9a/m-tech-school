@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string msgid="6743534657295236036" name="default_notification_channel_name">"এখন চলছে"</string>
+    <string name="exo_download_completed">ডাউনলোড হয়ে গেছে</string>
+    <string name="exo_download_description">ডাউনলোড করুন</string>
+    <string name="exo_download_downloading">ডাউনলোড হচ্ছে</string>
+    <string name="exo_download_failed">ডাউনলোড করা যায়নি</string>
+    <string name="exo_download_notification_channel_name">ডাউনলোড</string>
+    <string name="exo_download_paused">ডাউনলোড পজ করা আছে</string>
+    <string name="exo_download_paused_for_network">ডাউনলোড চালু করার জন্য নেটওয়ার্কের সাথে কানেক্ট হওয়ার অপেক্ষা করা হচ্ছে</string>
+    <string name="exo_download_paused_for_wifi">ডাউনলোড চালু করার জন্য ওয়াই-ফাইয়ের সাথে কানেক্ট হওয়ার অপেক্ষা করা হচ্ছে</string>
+    <string name="exo_download_removing">ডাউনলোড করা কন্টেন্ট সরিয়ে দেওয়া হচ্ছে</string>
+    <string msgid="4221330012095125431" name="pause_button_content_description">"পজ করুন"</string>
+    <string msgid="6034272287948142298" name="play_button_content_description">"চালান"</string>
+    <string msgid="17824442457643717" name="skip_to_next_item_button_content_description">"এটিকে এড়িয়ে পরবর্তী আইটেমে যান"</string>
+    <string msgid="7233771088610629683" name="skip_to_previous_item_button_content_description">"এটিকে এড়িয়ে পূর্ববর্তী আইটেমে যান"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"৯৯৯+"</string>
+</resources>

@@ -24,7 +24,7 @@ class AttendanceInfo extends StatelessWidget {
           color: Colors.indigo.withOpacity(0.6),
           boxShadow: [
             BoxShadow(
-              color: Colors.indigo.withOpacity(0.5),
+              color: Colors.indigo.withOpacity(0.3),
               spreadRadius: 4,
               blurRadius: 8,
               offset: const Offset(0, 3), // changes position of shadow
@@ -35,97 +35,102 @@ class AttendanceInfo extends StatelessWidget {
             future: ApiData()
                 .getStudentDetails("attendanceSummary", school, studentId),
             builder: (context, AsyncSnapshot snapshot) {
-              var newData = snapshot.data;
               if (snapshot.connectionState == ConnectionState.done) {
-                for (var item in snapshot.data["data"]) {
-                  if (item["is_active"] == 1) {
-                    newData = item;
+                if (snapshot.data == false) {
+                  return const Text("Check your internet");
+                } else {
+                  var newData = snapshot.data;
+                  for (var item in snapshot.data["data"]) {
+                    if (item["is_active"] == 1) {
+                      newData = item;
+                    }
                   }
-                }
-                return Stack(
-                  children: [
-                    SizedBox(
-                      height: dynamicWidth(context, 0.5),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(15),
-                                  topRight: Radius.circular(15)),
-                              color: myWhite.withOpacity(0.7),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    newData["_MonthYear"],
-                                    style: const TextStyle(
-                                        color: myBlack,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      push(
-                                          context,
-                                          TotalAttendance(
-                                              school: school, id: studentId));
-                                    },
-                                    child: const Text(
-                                      "See all",
-                                      style: TextStyle(
+                  return Stack(
+                    children: [
+                      SizedBox(
+                        height: dynamicWidth(context, 0.5),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(15),
+                                    topRight: Radius.circular(15)),
+                                color: myWhite.withOpacity(0.7),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      newData["_MonthYear"],
+                                      style: const TextStyle(
                                           color: myBlack,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                  )
+                                    InkWell(
+                                      onTap: () {
+                                        push(
+                                            context,
+                                            TotalAttendance(
+                                                school: school, id: studentId));
+                                      },
+                                      child: const Text(
+                                        "See all",
+                                        style: TextStyle(
+                                            color: myBlack,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  percentColumn(
+                                      context,
+                                      "Presents",
+                                      newData["_Presents"].toString() + "%",
+                                      double.parse(newData["_Presents"]) / 100,
+                                      7,
+                                      Colors.green),
+                                  percentColumn(
+                                      context,
+                                      "Absents",
+                                      newData["_Absents"].toString() + "%",
+                                      double.parse(newData["_Absents"]) / 100,
+                                      7,
+                                      Colors.red),
+                                  percentColumn(
+                                      context,
+                                      "Leaves",
+                                      newData["_Leaves"].toString() + "%",
+                                      double.parse(newData["_Leaves"]) / 100,
+                                      7,
+                                      Colors.deepOrangeAccent)
                                 ],
                               ),
                             ),
-                          ),
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                percentColumn(
-                                    context,
-                                    "Presents",
-                                    newData["_Presents"].toString() + "%",
-                                    double.parse(newData["_Presents"]) / 100,
-                                    7,
-                                    Colors.green),
-                                percentColumn(
-                                    context,
-                                    "Absents",
-                                    newData["_Absents"].toString() + "%",
-                                    double.parse(newData["_Absents"]) / 100,
-                                    7,
-                                    Colors.red),
-                                percentColumn(
-                                    context,
-                                    "Leaves",
-                                    newData["_Leaves"].toString() + "%",
-                                    double.parse(newData["_Leaves"]) / 100,
-                                    7,
-                                    Colors.deepOrangeAccent)
-                              ],
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    Positioned(
-                        bottom: -3,
-                        right: 0,
-                        child: Image.asset(
-                          "assets/attendance.png",
-                          width: dynamicWidth(context, 0.15),
-                        ))
-                  ],
-                );
+                      Positioned(
+                          bottom: -3,
+                          right: 0,
+                          child: Image.asset(
+                            "assets/attendance.png",
+                            width: dynamicWidth(context, 0.15),
+                          ))
+                    ],
+                  );
+                }
               } else {
                 return customLoader(context, color: myWhite);
               }

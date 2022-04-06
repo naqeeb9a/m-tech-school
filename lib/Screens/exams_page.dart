@@ -9,7 +9,9 @@ import 'package:mtech_school_app/widgets/clip_paths.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
 import 'package:mtech_school_app/widgets/essential_functions.dart';
 import 'package:mtech_school_app/widgets/loaders.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ExamsPage extends StatefulWidget {
   final String school;
@@ -67,8 +69,12 @@ class _ExamsPageState extends State<ExamsPage> {
                             child: Text("No exams Yet!!"),
                           );
                         } else {
-                          return upperCards(context, snapshot.data["data"],
-                              widget.school, widget.id);
+                          return ListView.builder(
+                            itemCount: snapshot.data["data"].length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return examCards(snapshot.data["data"][index]);
+                            },
+                          );
                         }
                       } else {
                         return customLoader(context, color: myWhite);
@@ -83,181 +89,183 @@ class _ExamsPageState extends State<ExamsPage> {
       ),
     );
   }
-}
 
-upperCards(context, snapshot, school, studentId) {
-  final _pageController = PageController(viewportFraction: 1, keepPage: true);
-  return Center(
-    child: PageView(
-      controller: _pageController,
-      physics: const BouncingScrollPhysics(),
-      scrollDirection: Axis.vertical,
-      children: List.generate(
-        snapshot.length,
-        (int index) {
-          final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
-          return Container(
-            margin: EdgeInsets.only(
-              right: dynamicWidth(context, .02),
+  Widget examCards(data) {
+    return Container(
+      margin: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+          color: myWhite,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+                offset: const Offset(1, 1),
+                spreadRadius: 2,
+                blurRadius: 2,
+                color: primaryBlue.withOpacity(0.3))
+          ]),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: myBlack.withOpacity(0.2),
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.asset(
+              "assets/paper.png",
+              width: 100,
             ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(
-                dynamicWidth(context, .024),
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  snapshot[index]["title"].toString(),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: dynamicHeight(context, 0.8),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                      dynamicWidth(context, 0.04),
-                    ),
-                    child: FutureBuilder(
-                      future: ApiData().getStudentExamDetails("examsByID",
-                          school, snapshot[index]["id"], studentId),
-                      builder: (BuildContext context, AsyncSnapshot snapshot1) {
-                        if (snapshot1.connectionState == ConnectionState.done) {
-                          if (snapshot1.data == false ||
-                              snapshot1.data == null) {
-                            return const Text("Server Error");
-                          } else {
-                            return (snapshot1.data["report"] == null ||
-                                    snapshot1.data == "")
-                                ? const Center(
-                                    child: Text("no Results Yet!!"),
-                                  )
-                                : ViewPDF(
-                                    snapshot1: snapshot1,
-                                    pdfViewerKey: _pdfViewerKey,
-                                    fileName:
-                                        snapshot[index]["title"].toString(),
-                                    index: index,
-                                  );
-                          }
-                        } else {
-                          return customLoader(context, color: myBlack);
-                        }
-                      },
-                    ),
+                Flexible(
+                  child: Text(
+                    data["title"].toString(),
+                    maxLines: 2,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
                   ),
+                ),
+                DownloadButton(
+                  fileName: data["title"].toString(),
+                  id: data["id"],
+                  school: widget.school,
+                  studentId: widget.id,
                 )
               ],
             ),
-          );
-        },
-      ),
-    ),
-  );
-}
-
-class ViewPDF extends StatelessWidget {
-  final AsyncSnapshot snapshot1;
-  final Key pdfViewerKey;
-  final String fileName;
-  final int index;
-  const ViewPDF(
-      {Key? key,
-      required this.snapshot1,
-      required this.pdfViewerKey,
-      required this.fileName,
-      required this.index})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingDownloadButton(
-        snapshot1: snapshot1,
-        fileName: fileName,
-        index: index,
-      ),
-      body: SfPdfViewer.network(
-        snapshot1.data["report"],
-        key: pdfViewerKey,
+          ],
+        ),
       ),
     );
   }
 }
 
-class FloatingDownloadButton extends StatefulWidget {
-  final AsyncSnapshot snapshot1;
+class DownloadButton extends StatefulWidget {
   final String fileName;
-  final int index;
-  const FloatingDownloadButton(
+  final String school;
+  final String studentId;
+  final int id;
+  const DownloadButton(
       {Key? key,
-      required this.snapshot1,
       required this.fileName,
-      required this.index})
+      required this.id,
+      required this.school,
+      required this.studentId})
       : super(key: key);
 
   @override
-  State<FloatingDownloadButton> createState() => _FloatingDownloadButtonState();
+  State<DownloadButton> createState() => _DownloadButtonState();
 }
 
-class _FloatingDownloadButtonState extends State<FloatingDownloadButton> {
+class _DownloadButtonState extends State<DownloadButton> {
   bool isloading = false;
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
-      heroTag: "hero${widget.index}",
-      backgroundColor: primaryBlue,
-      onPressed: () => openFile(
-          url: widget.snapshot1.data["report"], fileName: widget.fileName),
-      child: isloading == true
-          ? const CircularProgressIndicator(
-              color: myWhite,
-            )
-          : const Icon(
-              Icons.download,
-              color: myWhite,
-            ),
-    );
+    return InkWell(
+        onTap: () async {
+          setState(() {
+            isloading = true;
+          });
+          var res = await ApiData().getStudentExamDetails(
+              "examsByID", widget.school, widget.id, widget.studentId);
+          if (res == false) {
+            Fluttertoast.showToast(
+                msg: "Check your internet or try again later");
+          } else {
+            await openFile(url: res["report"], fileName: widget.fileName);
+          }
+          setState(() {
+            isloading = false;
+          });
+        },
+        child: !isloading
+            ? const Icon(Icons.open_in_new)
+            : Column(
+                children: const [
+                  CircularProgressIndicator.adaptive(
+                    backgroundColor: primaryBlue,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text("Opening...")
+                ],
+              ));
+
+    // FloatingActionButton(
+
+    //   backgroundColor: primaryBlue,
+    //   onPressed: () => openFile(
+    //       url: widget.snapshot.data["report"], fileName: widget.fileName),
+    //   child: isloading == true
+    //       ? const CircularProgressIndicator(
+    //           color: myWhite,
+    //         )
+    //       : const Icon(
+    //           Icons.download,
+    //           color: myWhite,
+    //         ),
+    // );
   }
 
   Future openFile({required String url, String? fileName}) async {
-    setState(() {
-      isloading = true;
-    });
-    final file = await downloadFile(url, fileName);
-    if (file == null) {
-      setState(() {
-        isloading = false;
-      });
-      Fluttertoast.showToast(
-          msg: "File didn't download",
-          backgroundColor: Colors.red,
-          textColor: myWhite);
-    } else {
-      setState(() {
-        isloading = false;
-      });
+    PermissionStatus storageStatus = await Permission.storage.status;
 
+    if (storageStatus.isDenied) {
+      await Permission.manageExternalStorage.request();
+      await Permission.storage.request().then((value) {
+        if (value.isDenied) {
+          Fluttertoast.showToast(msg: "Please enable storage permission");
+        }
+      });
+    } else if (storageStatus.isPermanentlyDenied) {
       Fluttertoast.showToast(
-          timeInSecForIosWeb: 5,
-          msg: "✔️ Downloaded successfully\nPath : ${file.path}",
-          backgroundColor: Colors.green,
-          textColor: myWhite);
+          msg: "Please enable storage permission from settings");
+    } else {
+      final file = await downloadFile(url, fileName);
+      if (file == null) {
+        setState(() {
+          isloading = false;
+        });
+        Fluttertoast.showToast(
+            msg: "File didn't download",
+            backgroundColor: Colors.red,
+            textColor: myWhite);
+      } else {
+        OpenFile.open(file.path);
+      }
     }
   }
 
   Future<File?> downloadFile(String url, String? fileName) async {
     try {
-      final file = File("/storage/emulated/0/Download/$fileName.pdf");
-      final response = await Dio().get(url,
-          options: Options(
-              responseType: ResponseType.bytes,
-              followRedirects: false,
-              receiveTimeout: 0));
-      final raf = file.openSync(mode: FileMode.write);
-      raf.writeFromSync(response.data);
-      await raf.close();
-      return file;
+      if (await Permission.storage.isGranted) {
+        late final String appStorage;
+        if (Platform.isIOS) {
+          final path = await getApplicationDocumentsDirectory();
+          appStorage = path.path;
+        } else {
+          final path = await getApplicationDocumentsDirectory();
+          appStorage = path.path;
+        }
+
+        final file = File("$appStorage/$fileName.pdf");
+        final response = await Dio().get(url,
+            options: Options(
+                responseType: ResponseType.bytes,
+                followRedirects: false,
+                receiveTimeout: 0));
+        final raf = file.openSync(mode: FileMode.write);
+        raf.writeFromSync(response.data);
+        await raf.close();
+        return file;
+      } else {
+        return null;
+      }
     } catch (e) {
       return null;
     }

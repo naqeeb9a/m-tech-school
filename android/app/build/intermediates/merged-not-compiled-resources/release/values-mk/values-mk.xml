@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string msgid="6743534657295236036" name="default_notification_channel_name">"Сега се репродуцира"</string>
+    <string name="exo_download_completed">Преземањето заврши</string>
+    <string name="exo_download_description">Преземи</string>
+    <string name="exo_download_downloading">Се презема</string>
+    <string name="exo_download_failed">Неуспешно преземање</string>
+    <string name="exo_download_notification_channel_name">Преземања</string>
+    <string name="exo_download_paused">Преземањата се паузирани</string>
+    <string name="exo_download_paused_for_network">Се чека мрежа за преземањата</string>
+    <string name="exo_download_paused_for_wifi">Се чека WiFi за преземањата</string>
+    <string name="exo_download_removing">Се отстрануваат преземањата</string>
+    <string msgid="4221330012095125431" name="pause_button_content_description">"Паузирај"</string>
+    <string msgid="6034272287948142298" name="play_button_content_description">"Пушти"</string>
+    <string msgid="17824442457643717" name="skip_to_next_item_button_content_description">"Скокни на следната ставка"</string>
+    <string msgid="7233771088610629683" name="skip_to_previous_item_button_content_description">"Скокни на претходната ставка"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+</resources>
