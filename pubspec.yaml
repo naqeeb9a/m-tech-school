@@ -52,6 +52,8 @@ dependencies:
   permission_handler: ^9.2.0
   android_path_provider: ^0.3.0
   open_file: ^3.2.1
+  lottie: ^1.2.2
+  cool_alert: ^1.1.0
 
 dev_dependencies:
   flutter_test:

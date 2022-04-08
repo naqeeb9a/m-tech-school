@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
+import 'package:mtech_school_app/widgets/retry.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../api/api.dart';
@@ -8,12 +9,17 @@ import '../utils/config.dart';
 import '../widgets/loaders.dart';
 import 'all_attendance.dart';
 
-class AttendanceInfo extends StatelessWidget {
+class AttendanceInfo extends StatefulWidget {
   final String school, studentId;
   const AttendanceInfo(
       {Key? key, required this.school, required this.studentId})
       : super(key: key);
 
+  @override
+  State<AttendanceInfo> createState() => _AttendanceInfoState();
+}
+
+class _AttendanceInfoState extends State<AttendanceInfo> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,12 +38,18 @@ class AttendanceInfo extends StatelessWidget {
           ],
         ),
         child: FutureBuilder(
-            future: ApiData()
-                .getStudentDetails("attendanceSummary", school, studentId),
+            future: ApiData().getStudentDetails(
+                "attendanceSummary", widget.school, widget.studentId),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.data == false) {
-                  return const Text("Check your internet");
+                  return Retry(
+                    setState: () {
+                      setState(() {});
+                    },
+                    color: Colors.white,
+                    textColor: myBlack,
+                  );
                 } else {
                   var newData = snapshot.data;
                   for (var item in snapshot.data["data"]) {
@@ -76,7 +88,8 @@ class AttendanceInfo extends StatelessWidget {
                                         push(
                                             context,
                                             TotalAttendance(
-                                                school: school, id: studentId));
+                                                school: widget.school,
+                                                id: widget.studentId));
                                       },
                                       child: const Text(
                                         "See all",

@@ -6,14 +6,20 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:mtech_school_app/api/api.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
 import 'package:mtech_school_app/widgets/loaders.dart';
+import 'package:mtech_school_app/widgets/retry.dart';
 import '../utils/config.dart';
 import 'package:html/parser.dart';
 
-class NoticeSlider extends StatelessWidget {
+class NoticeSlider extends StatefulWidget {
   final String school, studentId;
   const NoticeSlider({Key? key, required this.school, required this.studentId})
       : super(key: key);
 
+  @override
+  State<NoticeSlider> createState() => _NoticeSliderState();
+}
+
+class _NoticeSliderState extends State<NoticeSlider> {
   @override
   Widget build(BuildContext context) {
     int index = 0;
@@ -26,11 +32,18 @@ class NoticeSlider extends StatelessWidget {
     ];
     Random random = Random();
     return FutureBuilder(
-      future: ApiData().getStudentDetails("notices", school, studentId),
+      future: ApiData()
+          .getStudentDetails("notices", widget.school, widget.studentId),
       builder: ((context, AsyncSnapshot snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data == false) {
-            return const Text("check internet connection");
+            return Retry(
+              setState: () {
+                setState(() {});
+              },
+              color: myBlack,
+              textColor: myWhite,
+            );
           } else {
             return CarouselSlider(
               items: ((snapshot.data["data"]) as List).map((e) {
