@@ -9,6 +9,7 @@ import 'package:mtech_school_app/widgets/clip_paths.dart';
 import 'package:mtech_school_app/widgets/dynamic_sizes.dart';
 import 'package:mtech_school_app/widgets/essential_functions.dart';
 import 'package:mtech_school_app/widgets/loaders.dart';
+import 'package:mtech_school_app/widgets/retry.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -54,16 +55,12 @@ class _ExamsPageState extends State<ExamsPage> {
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.data == false || snapshot.data == null) {
-                          return Center(
-                            child: Text(
-                              "Server Error",
-                              style: TextStyle(
-                                color: myBlack,
-                                fontSize: dynamicWidth(context, .06),
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          );
+                          return Retry(
+                              setState: () {
+                                setState(() {});
+                              },
+                              color: myWhite,
+                              textColor: myBlack);
                         } else if (snapshot.data["data"].length == 0) {
                           return const Center(
                             child: Text("No exams Yet!!"),
